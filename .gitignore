@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Project-specific
+.env
+logs/*.log
+*.log
+credentials.json
+token.json
+token.pickle
+AI_Employee_Vault/.obsidian/workspace*
