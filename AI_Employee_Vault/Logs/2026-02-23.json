@@ -1,0 +1,152 @@
+[
+  {
+    "timestamp": "2026-02-23T20:38:40.965905",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! This is a test reply from Personal AI Employee system.",
+      "created": "2026-02-23T17:00:00Z",
+      "status": "approved"
+    },
+    "result": "failed"
+  },
+  {
+    "timestamp": "2026-02-23T20:45:49.655919",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! This is a test reply from Personal AI Employee system.",
+      "created": "2026-02-23T17:00:00Z",
+      "status": "approved"
+    },
+    "result": "failed"
+  },
+  {
+    "timestamp": "2026-02-23T20:51:23.063792",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! This is a test reply from Personal AI Employee system.",
+      "created": "2026-02-23T17:00:00Z",
+      "status": "approved"
+    },
+    "result": "failed"
+  },
+  {
+    "timestamp": "2026-02-23T21:02:18.052175",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! This is a test reply from Personal AI Employee system.",
+      "created": "2026-02-23T17:00:00Z",
+      "status": "approved"
+    },
+    "result": "failed"
+  },
+  {
+    "timestamp": "2026-02-23T21:09:11.760498",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! This is a test reply from Personal AI Employee system.",
+      "created": "2026-02-23T17:00:00Z",
+      "status": "approved"
+    },
+    "result": "failed"
+  },
+  {
+    "timestamp": "2026-02-23T21:22:09.274568",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! This is a test reply from Personal AI Employee system.",
+      "created": "2026-02-23T17:00:00Z",
+      "status": "approved"
+    },
+    "result": "failed"
+  },
+  {
+    "timestamp": "2026-02-23T22:11:59.686717",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! This is a test reply from Personal AI Employee system.",
+      "created": "2026-02-23T17:00:00Z",
+      "status": "approved"
+    },
+    "result": "sent"
+  },
+  {
+    "timestamp": "2026-02-23T22:14:28.820077",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_reply_roohia.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! I received your urgent message. How can I help you?",
+      "created": "2026-02-23T22:11:00Z",
+      "status": "approved"
+    },
+    "result": "sent"
+  },
+  {
+    "timestamp": "2026-02-23T22:17:38.980706",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_reply_roohia.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923013049720",
+      "body": "Hi! I received your urgent message. How can I help you?",
+      "created": "2026-02-23T22:11:00Z",
+      "status": "approved"
+    },
+    "result": "failed"
+  },
+  {
+    "timestamp": "2026-02-23T22:41:46.902594",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923012849720",
+      "body": "Hi! I received your urgent message. How can I help you?",
+      "created": "2026-02-23T22:30:00Z",
+      "status": "approved"
+    },
+    "result": "sent"
+  }
+]

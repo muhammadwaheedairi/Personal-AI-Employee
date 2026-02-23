@@ -52,13 +52,13 @@ class WhatsAppWatcher(BaseWatcher):
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
                     headless=True,
-                    args=["--no-sandbox", "--disable-dev-shm-usage"],
+                    args=["--no-sandbox", "--disable-dev-shm-usage", "--host-resolver-rules=MAP web.whatsapp.com 157.240.227.60"],
                     user_agent=USER_AGENT
                 )
                 page = browser.new_page() if not browser.pages else browser.pages[0]
-                page.goto("https://web.whatsapp.com")
+                page.goto("https://web.whatsapp.com", wait_until="domcontentloaded")
                 self.logger.info("Waiting for WhatsApp Web to load...")
-                time.sleep(30)
+                time.sleep(40)
 
                 title = page.title()
                 self.logger.info(f"Page title: {title}")
@@ -133,3 +133,60 @@ msg_id: {message['id']}
         self._save_processed_id(message["id"])
         self.logger.info(f"Created WhatsApp action file: {filepath.name}")
         return filepath
+    def send_reply(self, to: str, message: str) -> bool:
+        """Send a WhatsApp message to a contact by phone number."""
+        if Config.DRY_RUN:
+            self.logger.info(f"[DRY RUN] Would send WhatsApp to {to}: {message}")
+            return True
+
+        try:
+            import urllib.parse
+            with sync_playwright() as p:
+                browser = p.chromium.launch_persistent_context(
+                    str(self.session_path),
+                    headless=True,
+                    args=["--no-sandbox", "--disable-dev-shm-usage", "--host-resolver-rules=MAP web.whatsapp.com 157.240.227.60"],
+                    user_agent=USER_AGENT
+                )
+                page = browser.new_page() if not browser.pages else browser.pages[0]
+
+                phone = to.replace("+", "").replace(" ", "")
+                encoded_msg = urllib.parse.quote(message)
+                page.goto(f"https://web.whatsapp.com/send?phone={phone}&text={encoded_msg}")
+                self.logger.info(f"Opening chat with {to}...")
+                time.sleep(45)
+
+                # Textbox click karo pehle
+                textbox = page.query_selector('[contenteditable="true"][data-tab="10"]')
+                if not textbox:
+                    textbox = page.query_selector('[contenteditable="true"]')
+                if textbox:
+                    textbox.click()
+                    time.sleep(2)
+
+                # Send button dhundo
+                send_btn = None
+                for btn in page.query_selector_all("button"):
+                    label = btn.get_attribute("aria-label")
+                    if label and "Send" in label:
+                        send_btn = btn
+                        break
+
+                if send_btn:
+                    send_btn.click()
+                    time.sleep(3)
+                    self.logger.info(f"Message sent to {to}")
+                    browser.close()
+                    return True
+                else:
+                    self.logger.error("Send button not found!")
+                    browser.close()
+                    return False
+
+        except Exception as e:
+            self.logger.error(f"WhatsApp send error: {e}", exc_info=True)
+            return False
+
+        except Exception as e:
+            self.logger.error(f"WhatsApp send error: {e}", exc_info=True)
+            return False

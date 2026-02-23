@@ -116,6 +116,8 @@ class HITLApprovalWatcher:
         try:
             if action_type == "send_email":
                 return self._execute_email(metadata)
+            elif action_type == "send_whatsapp":
+                return self._execute_whatsapp(metadata)
             elif action_type == "payment":
                 # Payments always require fresh human confirmation — never auto-execute
                 self.logger.warning("Payment action approved but requires manual execution")
@@ -183,3 +185,13 @@ class HITLApprovalWatcher:
         logs = json.loads(log_file.read_text()) if log_file.exists() else []
         logs.append(entry)
         log_file.write_text(json.dumps(logs, indent=2))
+    def _execute_whatsapp(self, metadata: dict) -> str:
+        """Send approved WhatsApp reply using WhatsApp Watcher."""
+        from watchers.whatsapp_watcher import WhatsAppWatcher
+        watcher = WhatsAppWatcher()
+        to = metadata.get("to", "")
+        body = metadata.get("body", "")
+        if not to or not body:
+            return "error: missing to or body"
+        success = watcher.send_reply(to=to, message=body)
+        return "sent" if success else "failed"
