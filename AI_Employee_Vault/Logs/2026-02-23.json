@@ -23,5 +23,68 @@
     "subject": "test",
     "draft_id": "r5363828026952313589",
     "result": "success"
+  },
+  {
+    "timestamp": "2026-02-23T10:00:35Z",
+    "action_type": "email_triage",
+    "actor": "claude_code",
+    "target": "muhammadwaheedaree128@gmail.com",
+    "parameters": {"subject": "urgent meeting tomorrow", "email_id": "19c7466a331a4d9d"},
+    "approval_status": "plan_created",
+    "result": "PLAN_email_20260223_100035_urgent_meeting.md"
+  },
+  {
+    "timestamp": "2026-02-23T10:00:36Z",
+    "action_type": "email_triage",
+    "actor": "claude_code",
+    "target": "wm0297567@gmail.com",
+    "parameters": {"subject": "Urgent Test Email", "email_id": "19c74240ab01dfbb"},
+    "approval_status": "plan_created",
+    "result": "PLAN_email_20260223_100036_test_email.md"
+  },
+  {
+    "timestamp": "2026-02-23T10:00:37Z",
+    "action_type": "email_triage",
+    "actor": "claude_code",
+    "target": "muhammadwaheedairi@gmail.com",
+    "parameters": {"subject": "Urgent birthday", "email_id": "19c744e7ca7907b3"},
+    "approval_status": "plan_created",
+    "result": "PLAN_email_20260223_100037_birthday.md"
+  },
+  {
+    "timestamp": "2026-02-23T10:00:38Z",
+    "action_type": "email_triage",
+    "actor": "claude_code",
+    "target": "m128waheed@gmail.com",
+    "parameters": {"subject": "Urgent hackathon announce", "email_id": "19c74494545f5e67"},
+    "approval_status": "plan_created",
+    "result": "PLAN_email_20260223_100038_hackathon.md"
+  },
+  {
+    "timestamp": "2026-02-23T10:00:39Z",
+    "action_type": "email_reviewed",
+    "actor": "claude_code",
+    "target": "no-reply@accounts.google.com",
+    "parameters": {"subject": "Security alert", "email_id": "19c8817760a007a9"},
+    "approval_status": "no_action_needed",
+    "result": "PLAN_email_20260223_100039_security_alert.md"
+  },
+  {
+    "timestamp": "2026-02-23T10:00:40Z",
+    "action_type": "email_reviewed",
+    "actor": "claude_code",
+    "target": "communications@info.meezanbank.com",
+    "parameters": {"subject": "Webinar on 'Fundamentals of Zakat'!", "email_id": "19c70efe4bea7a51"},
+    "approval_status": "no_action_needed",
+    "result": "PLAN_email_20260223_100040_webinar.md"
+  },
+  {
+    "timestamp": "2026-02-23T10:00:41Z",
+    "action_type": "email_triage",
+    "actor": "claude_code",
+    "target": "muhammadwaheedaree128@gmail.com",
+    "parameters": {"subject": "Urgent meeting tomorrow", "email_id": "19c745f3f37e241b"},
+    "approval_status": "plan_created",
+    "result": "PLAN_email_20260223_100041_meeting_duplicate.md"
   }
 ]
