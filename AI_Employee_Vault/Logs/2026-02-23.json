@@ -29,7 +29,10 @@
     "action_type": "email_triage",
     "actor": "claude_code",
     "target": "muhammadwaheedaree128@gmail.com",
-    "parameters": {"subject": "urgent meeting tomorrow", "email_id": "19c7466a331a4d9d"},
+    "parameters": {
+      "subject": "urgent meeting tomorrow",
+      "email_id": "19c7466a331a4d9d"
+    },
     "approval_status": "plan_created",
     "result": "PLAN_email_20260223_100035_urgent_meeting.md"
   },
@@ -38,7 +41,10 @@
     "action_type": "email_triage",
     "actor": "claude_code",
     "target": "wm0297567@gmail.com",
-    "parameters": {"subject": "Urgent Test Email", "email_id": "19c74240ab01dfbb"},
+    "parameters": {
+      "subject": "Urgent Test Email",
+      "email_id": "19c74240ab01dfbb"
+    },
     "approval_status": "plan_created",
     "result": "PLAN_email_20260223_100036_test_email.md"
   },
@@ -47,7 +53,10 @@
     "action_type": "email_triage",
     "actor": "claude_code",
     "target": "muhammadwaheedairi@gmail.com",
-    "parameters": {"subject": "Urgent birthday", "email_id": "19c744e7ca7907b3"},
+    "parameters": {
+      "subject": "Urgent birthday",
+      "email_id": "19c744e7ca7907b3"
+    },
     "approval_status": "plan_created",
     "result": "PLAN_email_20260223_100037_birthday.md"
   },
@@ -56,7 +65,10 @@
     "action_type": "email_triage",
     "actor": "claude_code",
     "target": "m128waheed@gmail.com",
-    "parameters": {"subject": "Urgent hackathon announce", "email_id": "19c74494545f5e67"},
+    "parameters": {
+      "subject": "Urgent hackathon announce",
+      "email_id": "19c74494545f5e67"
+    },
     "approval_status": "plan_created",
     "result": "PLAN_email_20260223_100038_hackathon.md"
   },
@@ -65,7 +77,10 @@
     "action_type": "email_reviewed",
     "actor": "claude_code",
     "target": "no-reply@accounts.google.com",
-    "parameters": {"subject": "Security alert", "email_id": "19c8817760a007a9"},
+    "parameters": {
+      "subject": "Security alert",
+      "email_id": "19c8817760a007a9"
+    },
     "approval_status": "no_action_needed",
     "result": "PLAN_email_20260223_100039_security_alert.md"
   },
@@ -74,7 +89,10 @@
     "action_type": "email_reviewed",
     "actor": "claude_code",
     "target": "communications@info.meezanbank.com",
-    "parameters": {"subject": "Webinar on 'Fundamentals of Zakat'!", "email_id": "19c70efe4bea7a51"},
+    "parameters": {
+      "subject": "Webinar on 'Fundamentals of Zakat'!",
+      "email_id": "19c70efe4bea7a51"
+    },
     "approval_status": "no_action_needed",
     "result": "PLAN_email_20260223_100040_webinar.md"
   },
@@ -83,8 +101,51 @@
     "action_type": "email_triage",
     "actor": "claude_code",
     "target": "muhammadwaheedaree128@gmail.com",
-    "parameters": {"subject": "Urgent meeting tomorrow", "email_id": "19c745f3f37e241b"},
+    "parameters": {
+      "subject": "Urgent meeting tomorrow",
+      "email_id": "19c745f3f37e241b"
+    },
     "approval_status": "plan_created",
     "result": "PLAN_email_20260223_100041_meeting_duplicate.md"
+  },
+  {
+    "timestamp": "2026-02-23T16:45:00Z",
+    "action_type": "whatsapp_draft",
+    "actor": "claude_code",
+    "target": "+92 323 8293672",
+    "parameters": {
+      "message": "urgent help needed please",
+      "msg_id": "-4838253273640647793"
+    },
+    "approval_status": "pending_approval",
+    "result": "WHATSAPP_reply_20260223_164500.md"
+  },
+  {
+    "timestamp": "2026-02-23T16:49:14.169663",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_reply_20260223_164500.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+92 323 8293672",
+      "body": "Hi! I received your message about needing urgent help. Could you please provide more details about what you need assistance with? This will help me respond more effectively.",
+      "created": "2026-02-23T16:45:00Z",
+      "expires": "2026-02-24T16:45:00Z",
+      "status": "pending"
+    },
+    "result": "no_handler"
+  },
+  {
+    "timestamp": "2026-02-23T16:54:00Z",
+    "action_type": "whatsapp_draft",
+    "actor": "claude_code",
+    "target": "+92 323 8293672",
+    "parameters": {
+      "message": "Urgent meeting",
+      "msg_id": "-1103050623864900982"
+    },
+    "approval_status": "pending_approval",
+    "result": "WHATSAPP_reply_20260223_165400.md"
   }
 ]
