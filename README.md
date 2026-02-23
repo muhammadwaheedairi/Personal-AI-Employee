@@ -328,7 +328,7 @@ This is a hackathon project for educational purposes. Contributions welcome:
 ## 📚 Resources
 
 - [Hackathon Guide](./Personal_AI_Employee_Hackathon.md) — Full architecture & requirements
-- [Claude Code Docs](https://agentfactory.panaversity.org/docs/AI-Tool-Landscape/claude-code-features-and-workflows)
+- [Claude Code Docs](https://code.claude.com/docs/en/overview)
 - [Agent Skills Guide](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 - [MCP Documentation](https://modelcontextprotocol.io/introduction)
 - [Obsidian Help](https://help.obsidian.md/)
