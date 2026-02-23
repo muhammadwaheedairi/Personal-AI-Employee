@@ -1,0 +1,27 @@
+[
+  {
+    "timestamp": "2026-02-23T06:16:03.796656",
+    "action_type": "email_send",
+    "actor": "email_mcp",
+    "to": "test@test.com",
+    "subject": "test",
+    "result": "error: <HttpError 403 when requesting https://gmail.googleapis.com/gmail/v1/users/me/messages/send?alt=json returned \"Request had insufficient authentication scopes.\". Details: \"[{'message': 'Insufficient Permission', 'domain': 'global', 'reason': 'insufficientPermissions'}]\">"
+  },
+  {
+    "timestamp": "2026-02-23T06:27:27.594764",
+    "action_type": "email_draft",
+    "actor": "email_mcp",
+    "to": "test@test.com",
+    "subject": "test",
+    "result": "error: <HttpError 403 when requesting https://gmail.googleapis.com/gmail/v1/users/me/drafts?alt=json returned \"Request had insufficient authentication scopes.\". Details: \"[{'message': 'Insufficient Permission', 'domain': 'global', 'reason': 'insufficientPermissions'}]\">"
+  },
+  {
+    "timestamp": "2026-02-23T06:30:01.092064",
+    "action_type": "email_draft",
+    "actor": "email_mcp",
+    "to": "test@test.com",
+    "subject": "test",
+    "draft_id": "r5363828026952313589",
+    "result": "success"
+  }
+]

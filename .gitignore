@@ -17,3 +17,10 @@ credentials.json
 token.json
 token.pickle
 AI_Employee_Vault/.obsidian/workspace*
+credentials.json
+watchers/token.pickle
+.whatsapp_session/
+.linkedin_session/
+__pycache__/
+.venv/
+*.pyc
