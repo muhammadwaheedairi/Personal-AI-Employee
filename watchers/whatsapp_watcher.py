@@ -5,6 +5,7 @@ Monitors WhatsApp Web for urgent messages using Playwright.
 
 import json
 import time
+import urllib.parse
 from datetime import datetime
 from pathlib import Path
 
@@ -13,8 +14,13 @@ from playwright.sync_api import sync_playwright
 from watchers.base_watcher import BaseWatcher
 from watchers.config import Config
 
-URGENT_KEYWORDS = ["urgent", "asap", "invoice", "payment", "help", "emergency", "important"]
+URGENT_KEYWORDS = ["urgent", "asap", "invoice", "payment", "emergency", "important"]
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+BROWSER_ARGS = [
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--host-resolver-rules=MAP web.whatsapp.com 157.240.227.60",
+]
 
 
 class WhatsAppWatcher(BaseWatcher):
@@ -52,10 +58,10 @@ class WhatsAppWatcher(BaseWatcher):
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
                     headless=True,
-                    args=["--no-sandbox", "--disable-dev-shm-usage", "--host-resolver-rules=MAP web.whatsapp.com 157.240.227.60"],
-                    user_agent=USER_AGENT
+                    args=BROWSER_ARGS,
+                    user_agent=USER_AGENT,
                 )
-                page = browser.new_page() if not browser.pages else browser.pages[0]
+                page = browser.pages[0] if browser.pages else browser.new_page()
                 page.goto("https://web.whatsapp.com", wait_until="domcontentloaded")
                 self.logger.info("Waiting for WhatsApp Web to load...")
                 time.sleep(40)
@@ -63,7 +69,6 @@ class WhatsAppWatcher(BaseWatcher):
                 title = page.title()
                 self.logger.info(f"Page title: {title}")
 
-                # Pane ka poora text lo aur line by line parse karo
                 pane = page.query_selector('#pane-side')
                 if not pane:
                     self.logger.error("pane-side not found!")
@@ -73,11 +78,9 @@ class WhatsAppWatcher(BaseWatcher):
                 pane_text = pane.inner_text()
                 lines = pane_text.split('\n')
 
-                # Urgent keywords wali lines dhundo
                 for i, line in enumerate(lines):
                     line_lower = line.lower().strip()
                     if any(kw in line_lower for kw in URGENT_KEYWORDS):
-                        # Context ke liye surrounding lines bhi lo
                         start = max(0, i - 2)
                         end = min(len(lines), i + 3)
                         context = '\n'.join(lines[start:end]).strip()
@@ -86,7 +89,7 @@ class WhatsAppWatcher(BaseWatcher):
                             urgent_messages.append({
                                 "id": msg_id,
                                 "text": context,
-                                "matched_line": line.strip()
+                                "matched_line": line.strip(),
                             })
                             self.logger.info(f"Urgent message found: {line.strip()}")
 
@@ -99,7 +102,7 @@ class WhatsAppWatcher(BaseWatcher):
         return urgent_messages
 
     def create_action_file(self, message: dict) -> Path:
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
         filepath = self.needs_action / f"WHATSAPP_{timestamp}.md"
 
         filepath.write_text(f"""---
@@ -133,6 +136,7 @@ msg_id: {message['id']}
         self._save_processed_id(message["id"])
         self.logger.info(f"Created WhatsApp action file: {filepath.name}")
         return filepath
+
     def send_reply(self, to: str, message: str) -> bool:
         """Send a WhatsApp message to a contact by phone number."""
         if Config.DRY_RUN:
@@ -140,15 +144,14 @@ msg_id: {message['id']}
             return True
 
         try:
-            import urllib.parse
             with sync_playwright() as p:
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
                     headless=True,
-                    args=["--no-sandbox", "--disable-dev-shm-usage", "--host-resolver-rules=MAP web.whatsapp.com 157.240.227.60"],
-                    user_agent=USER_AGENT
+                    args=BROWSER_ARGS,
+                    user_agent=USER_AGENT,
                 )
-                page = browser.new_page() if not browser.pages else browser.pages[0]
+                page = browser.new_page()
 
                 phone = to.replace("+", "").replace(" ", "")
                 encoded_msg = urllib.parse.quote(message)
@@ -156,7 +159,6 @@ msg_id: {message['id']}
                 self.logger.info(f"Opening chat with {to}...")
                 time.sleep(45)
 
-                # Textbox click karo pehle
                 textbox = page.query_selector('[contenteditable="true"][data-tab="10"]')
                 if not textbox:
                     textbox = page.query_selector('[contenteditable="true"]')
@@ -164,7 +166,6 @@ msg_id: {message['id']}
                     textbox.click()
                     time.sleep(2)
 
-                # Send button dhundo
                 send_btn = None
                 for btn in page.query_selector_all("button"):
                     label = btn.get_attribute("aria-label")
@@ -182,10 +183,6 @@ msg_id: {message['id']}
                     self.logger.error("Send button not found!")
                     browser.close()
                     return False
-
-        except Exception as e:
-            self.logger.error(f"WhatsApp send error: {e}", exc_info=True)
-            return False
 
         except Exception as e:
             self.logger.error(f"WhatsApp send error: {e}", exc_info=True)

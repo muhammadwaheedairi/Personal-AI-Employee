@@ -1,0 +1,61 @@
+[
+  {
+    "timestamp": "2026-02-25T05:33:09.570754",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi! I received your urgent message about the project payment. I will get back to you shortly.",
+      "created": "2026-02-25T05:30:00Z",
+      "status": "approved"
+    },
+    "result": "sent"
+  },
+  {
+    "timestamp": "2026-02-25T05:35:00Z",
+    "action_type": "whatsapp_draft",
+    "actor": "whatsapp_triage_skill",
+    "source_files": [
+      "WHATSAPP_20260225_052634_181996.md",
+      "WHATSAPP_20260225_053014_870941.md"
+    ],
+    "metadata": {
+      "contact": "+92 323 8293672",
+      "intent": "urgent_query + payment_discussion",
+      "priority": "high",
+      "approval_file": "WHATSAPP_reply_20260225_053014.md"
+    },
+    "result": "draft_created_pending_approval"
+  },
+  {
+    "timestamp": "2026-02-25T05:43:57.594247",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_reply_20260225_053014.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+92 323 8293672",
+      "body": "\"Hi, I received your messages about the urgent payment discussion and emergency meeting. I'm available to discuss both today. Please let me know what time works best for you, and I'll make sure to be available. Regarding the project payment, I'm ready to go over the details whenever you're free.\"",
+      "created": "2026-02-25T05:35:00Z",
+      "expires": "2026-02-26T05:35:00Z",
+      "status": "pending",
+      "source_messages": "WHATSAPP_20260225_052634_181996.md, WHATSAPP_20260225_053014_870941.md"
+    },
+    "result": "sent"
+  },
+  {
+    "timestamp": "2026-02-25T05:50:05Z",
+    "action_type": "linkedin_post",
+    "actor": "linkedin_poster_skill",
+    "metadata": {
+      "topic": "personal_ai_employee_launch",
+      "post_file": "personal_ai_employee_20260225_054500.md",
+      "character_count": 847
+    },
+    "result": "published"
+  }
+]

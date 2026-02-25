@@ -1,0 +1,62 @@
+[
+  {
+    "timestamp": "2026-02-24T20:30:25Z",
+    "action_type": "email_sent",
+    "source_file": "EMAIL_20260224_203013_Urgent Project Invoice Required.md",
+    "recipient": "m128waheed@gmail.com",
+    "subject": "Re: Urgent: Project Invoice Required",
+    "status": "success",
+    "approval_required": true,
+    "approved_by": "human",
+    "notes": "Clarification request for invoice details"
+  },
+  {
+    "timestamp": "2026-02-24T21:06:38.694517",
+    "action_type": "unknown",
+    "actor": "hitl_approval_watcher",
+    "filename": "REPLY_whatsapp_roohia_payment_20260224.md",
+    "decision": "approved",
+    "metadata": {
+      "type": "whatsapp_reply",
+      "recipient": "+92 323 8293672",
+      "recipient_name": "Roohia",
+      "source_msg_id": "-6451586902052880380",
+      "created": "2026-02-24T20:55:52Z",
+      "priority": "high",
+      "status": "awaiting_approval"
+    },
+    "result": "no_handler"
+  },
+  {
+    "timestamp": "2026-02-24T21:11:46.290547",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_roohia_payment_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi Roohia, I saw your message about the project payment. I'm available to discuss this today. Could you let me know which project you're referring to and what specific aspect of the payment you'd like to discuss? This will help me prepare the right information for our conversation. Looking forward to hearing from you.",
+      "created": "2026-02-24T20:55:52Z",
+      "priority": "high",
+      "source_msg_id": "-6451586902052880380"
+    },
+    "result": "failed"
+  },
+  {
+    "timestamp": "2026-02-24T21:11:59.121111",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_roohia_payment_reply.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hi Roohia, I saw your message about the project payment. I'm available to discuss this today. Could you let me know which project you're referring to and what specific aspect of the payment you'd like to discuss? This will help me prepare the right information for our conversation. Looking forward to hearing from you.",
+      "created": "2026-02-24T20:55:52Z",
+      "priority": "high",
+      "source_msg_id": "-6451586902052880380"
+    },
+    "result": "failed"
+  }
+]
