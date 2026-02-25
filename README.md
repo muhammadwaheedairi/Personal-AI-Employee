@@ -38,7 +38,7 @@ A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the c
 | Watcher | Status | Purpose |
 |---------|--------|---------|
 | **Gmail Watcher** | ✅ Active | Monitors inbox for urgent/important emails every 2 minutes |
-| **WhatsApp Watcher** | ✅ Active | Captures messages with keywords (urgent, invoice, payment) |
+| **WhatsApp Watcher** | ✅ Active | Captures urgent messages & sends automated replies with HITL approval |
 | **LinkedIn Poster** | ✅ Active | Auto-publishes business updates from queue folder |
 | **HITL Approval** | ✅ Active | Watches `/Pending_Approval` and executes approved actions |
 | **Filesystem** | ✅ Active | Monitors drop folders for file-based triggers |
@@ -271,6 +271,7 @@ Personal-AI-Employee/
 - **Plan.md Creation:** Claude reasoning loop with multi-step plans
 - **Email MCP Server:** External action capability
 - **HITL Approval Workflow:** `/Pending_Approval` → `/Approved` → Execute
+- **WhatsApp Reply Sending:** Approved replies sent automatically via Playwright automation
 - **Cron Scheduling:** Daily briefing at 8:00 AM
 - **4 Agent Skills:** All AI functionality as reusable skills
 
