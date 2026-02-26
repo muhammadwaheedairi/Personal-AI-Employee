@@ -21,6 +21,9 @@ credentials.json
 watchers/token.pickle
 .whatsapp_session/
 .linkedin_session/
+.facebook_session/
+.twitter_session/
+.instagram_session/
 __pycache__/
 .venv/
 *.pyc
