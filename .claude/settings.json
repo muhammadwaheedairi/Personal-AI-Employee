@@ -11,47 +11,5 @@
         ]
       }
     ]
-  },
-  "mcpServers": {
-    "email": {
-      "command": "uv",
-      "args": [
-        "run",
-        "python",
-        "mcp_servers/email_mcp.py"
-      ]
-    },
-    "whatsapp": {
-      "command": "uv",
-      "args": [
-        "run",
-        "python",
-        "mcp_servers/whatsapp_mcp.py"
-      ]
-    },
-    "twitter": {
-      "command": "uv",
-      "args": [
-        "run",
-        "python",
-        "mcp_servers/twitter_mcp.py"
-      ]
-    },
-    "facebook": {
-      "command": "uv",
-      "args": [
-        "run",
-        "python",
-        "mcp_servers/facebook_mcp.py"
-      ]
-    },
-    "linkedin": {
-      "command": "uv",
-      "args": [
-        "run",
-        "python",
-        "mcp_servers/linkedin_mcp.py"
-      ]
-    }
   }
 }

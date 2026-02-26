@@ -9,6 +9,7 @@ dependencies = [
     "google-auth>=2.48.0",
     "google-auth-httplib2>=0.3.0",
     "google-auth-oauthlib>=1.2.4",
+    "httpx>=0.28.1",
     "mcp>=1.26.0",
     "playwright>=1.58.0",
     "python-dotenv>=1.2.1",

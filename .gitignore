@@ -1,30 +1,35 @@
-# Python-generated files
+# Python
 __pycache__/
 *.py[oc]
+*.pyc
 build/
 dist/
 wheels/
 *.egg-info
 
 # Virtual environments
-.venv
+.venv/
 
-# Project-specific
+# Environment & secrets
 .env
-logs/*.log
-*.log
 credentials.json
 token.json
 token.pickle
-AI_Employee_Vault/.obsidian/workspace*
-credentials.json
 watchers/token.pickle
+
+# Browser sessions
 .whatsapp_session/
 .linkedin_session/
 .facebook_session/
 .twitter_session/
 .instagram_session/
-__pycache__/
-.venv/
-*.pyc
+
+# Logs
+logs/
+*.log
+
+# Obsidian
+AI_Employee_Vault/.obsidian/workspace*
+
+# Misc
 Personal_AI_Employee_Hackathon.md
