@@ -19,6 +19,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--gmail", action="store_true", help="Run Gmail watcher only")
     parser.add_argument("--whatsapp", action="store_true", help="Run WhatsApp watcher only")
     parser.add_argument("--linkedin", action="store_true", help="Run LinkedIn poster only")
+    parser.add_argument("--facebook", action="store_true", help="Run Facebook poster only")
+    parser.add_argument("--instagram", action="store_true", help="Run Instagram poster only")
+    parser.add_argument("--twitter", action="store_true", help="Run Twitter poster only")
     parser.add_argument("--filesystem", action="store_true", help="Run filesystem watcher only")
     parser.add_argument("--hitl", action="store_true", help="Run HITL approval watcher only")
     parser.add_argument("--briefing", action="store_true", help="Trigger daily briefing generation")
@@ -50,6 +53,15 @@ def main() -> None:
     elif args.linkedin:
         from watchers.linkedin_poster import LinkedInPoster
         LinkedInPoster().run()
+    elif args.facebook:
+        from watchers.facebook_poster import FacebookPoster
+        FacebookPoster().run()
+    elif args.instagram:
+        from watchers.instagram_poster import InstagramPoster
+        InstagramPoster().run()
+    elif args.twitter:
+        from watchers.twitter_poster import TwitterPoster
+        TwitterPoster().run()
 
     elif args.filesystem:
         from watchers.filesystem_watcher import FilesystemWatcher

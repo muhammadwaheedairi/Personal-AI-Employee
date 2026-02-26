@@ -30,6 +30,7 @@ class Config:
     LINKEDIN_SESSION_PATH = os.getenv("LINKEDIN_SESSION_PATH", "./.linkedin_session")
     LINKEDIN_CHECK_INTERVAL = int(os.getenv("LINKEDIN_CHECK_INTERVAL", "300"))
 
+
     # ── Behaviour ─────────────────────────────────────────────────── #
     DRY_RUN = os.getenv("DRY_RUN", "false").lower() == "true"
 

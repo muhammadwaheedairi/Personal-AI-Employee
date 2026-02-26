@@ -21,6 +21,7 @@ class HITLApprovalWatcher:
     POLL_INTERVAL = 10  # seconds
 
     def __init__(self, logger=None):
+        self.audit = AuditLogger(Config.VAULT_PATH / "Logs")
         import logging
         self.vault_path = Config.VAULT_PATH
         self.pending_dir = self.vault_path / "Pending_Approval"
@@ -66,7 +67,10 @@ class HITLApprovalWatcher:
 
             self.logger.info(f"Processing approved action: {approval_file.name}")
 
+            import time as _time
+            _start = _time.time()
             result = self._dispatch_action(action_type, metadata)
+            _duration = int((_time.time() - _start) * 1000)
 
             self._log_approval(
                 approval_file.name, action_type, metadata, "approved", result
@@ -130,18 +134,27 @@ class HITLApprovalWatcher:
             return f"error: {e}"
 
     def _execute_email(self, metadata: dict) -> str:
-        """Call email MCP to send the approved email."""
-        # Import here to avoid circular imports at module level
-        import sys
-        sys.path.insert(0, str(Path(__file__).parent.parent))
-        from mcp_servers.email_mcp import send_email
+        """Send approved email via Gmail API directly."""
+        import pickle, base64
+        from email.mime.multipart import MIMEMultipart
+        from email.mime.text import MIMEText
+        from google.auth.transport.requests import Request
+        from googleapiclient.discovery import build
 
-        result = send_email(
-            to=metadata.get("to", ""),
-            subject=metadata.get("subject", "(no subject)"),
-            body=metadata.get("body", ""),
-        )
-        return result.get("status", "unknown")
+        token_path = Path(__file__).parent.parent / "watchers" / "token.pickle"
+        with open(token_path, "rb") as f:
+            creds = pickle.load(f)
+        if creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+
+        service = build("gmail", "v1", credentials=creds)
+        msg = MIMEMultipart()
+        msg["to"] = metadata.get("to", "")
+        msg["subject"] = metadata.get("subject", "(no subject)")
+        msg.attach(MIMEText(metadata.get("body", ""), "plain"))
+        raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
+        service.users().messages().send(userId="me", body={"raw": raw}).execute()
+        return "sent"
 
     # ------------------------------------------------------------------ #
     #  Helpers                                                              #
@@ -195,3 +208,29 @@ class HITLApprovalWatcher:
             return "error: missing to or body"
         success = watcher.send_reply(to=to, message=body)
         return "sent" if success else "failed"
+
+
+class AuditLogger:
+    """Enhanced audit logger for Gold Tier comprehensive logging."""
+
+    def __init__(self, logs_dir: Path):
+        self.logs_dir = logs_dir
+        self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    def log(self, action_type: str, actor: str, metadata: dict,
+            result: str, duration_ms: int = 0, error: str = None) -> None:
+        log_file = self.logs_dir / f"{datetime.now().strftime('%Y-%m-%d')}.json"
+        entry = {
+            "timestamp": datetime.now().isoformat(),
+            "session_id": self.session_id,
+            "action_type": action_type,
+            "actor": actor,
+            "metadata": metadata,
+            "result": result,
+            "duration_ms": duration_ms,
+            "error": error,
+            "status": "error" if error else "success",
+        }
+        logs = json.loads(log_file.read_text()) if log_file.exists() else []
+        logs.append(entry)
+        log_file.write_text(json.dumps(logs, indent=2))

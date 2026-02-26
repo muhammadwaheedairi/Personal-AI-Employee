@@ -1,0 +1,56 @@
+[
+  {
+    "timestamp": "2026-02-26T05:52:32.881342",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_mcp_20260226.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "created": "2026-02-26T00:00:00Z",
+      "status": "pending",
+      "priority": "normal"
+    },
+    "result": "error: missing to or body"
+  },
+  {
+    "timestamp": "2026-02-26T05:57:10.680239",
+    "action_type": "send_whatsapp",
+    "actor": "hitl_approval_watcher",
+    "filename": "WHATSAPP_test_mcp_v2_20260226.md",
+    "decision": "approved",
+    "metadata": {
+      "action": "send_whatsapp",
+      "to": "+923238293672",
+      "body": "Hello! This is a test from our AI Employee MCP server",
+      "created": "2026-02-26T05:55:00Z",
+      "status": "approved"
+    },
+    "result": "sent"
+  },
+  {
+    "timestamp": "2026-02-26T06:02:53.392000",
+    "action_type": "twitter_post",
+    "actor": "twitter_poster_watcher",
+    "filename": "twitter_mcp_test_20260226.md",
+    "metadata": {
+      "topic": "twitter_mcp_test",
+      "content": "Testing our Twitter MCP server! AI Employee can now post tweets directly via Claude Code 🤖 #AI #Automation",
+      "created": "2026-02-26T00:00:00Z"
+    },
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-26T06:08:16.698000",
+    "action_type": "facebook_post",
+    "actor": "facebook_poster_watcher",
+    "filename": "facebook_mcp_test_20260226.md",
+    "metadata": {
+      "topic": "facebook_mcp_test",
+      "content": "Testing our Facebook MCP server! AI Employee can now post to Facebook directly via Claude Code 🤖 #AI #Automation",
+      "created": "2026-02-26T06:05:00Z"
+    },
+    "result": "posted"
+  }
+]
