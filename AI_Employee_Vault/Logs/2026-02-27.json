@@ -1,0 +1,391 @@
+[
+  {
+    "timestamp": "2026-02-27T10:34:17Z",
+    "action_type": "email_triage",
+    "actor": "claude_code",
+    "target": "muhammadwaheedairi@gmail.com",
+    "parameters": {
+      "subject": "Urgent: Invoice Required for AI Automation Project",
+      "classification": "invoice_request",
+      "priority": "high"
+    },
+    "approval_status": "pending",
+    "result": "plan_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:34:17Z",
+    "action_type": "email_triage",
+    "actor": "claude_code",
+    "target": "m128waheed@gmail.com",
+    "parameters": {
+      "subject": "Interested in your AI automation services",
+      "classification": "general",
+      "priority": "medium"
+    },
+    "approval_status": "pending",
+    "result": "plan_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:35:00Z",
+    "action_type": "odoo_customer_create",
+    "actor": "claude_code",
+    "target": "Ahmad Test Client",
+    "parameters": {
+      "email": "muhammadwaheedairi@gmail.com",
+      "customer_id": 7
+    },
+    "approval_status": "auto_approved",
+    "result": "customer_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:35:30Z",
+    "action_type": "odoo_invoice_create",
+    "actor": "claude_code",
+    "target": "Ahmad Test Client",
+    "parameters": {
+      "invoice_number": "INV/2026/00002",
+      "amount": 500.0,
+      "description": "AI Automation Setup"
+    },
+    "approval_status": "auto_approved",
+    "result": "invoice_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:36:00Z",
+    "action_type": "email_draft",
+    "actor": "claude_code",
+    "target": "muhammadwaheedairi@gmail.com",
+    "parameters": {
+      "subject": "Invoice INV/2026/00002 - AI Automation Setup",
+      "type": "invoice_email"
+    },
+    "approval_status": "pending",
+    "result": "draft_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:36:30Z",
+    "action_type": "email_draft",
+    "actor": "claude_code",
+    "target": "m128waheed@gmail.com",
+    "parameters": {
+      "subject": "Re: Interested in your AI automation services",
+      "type": "business_inquiry"
+    },
+    "approval_status": "pending",
+    "result": "draft_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:40:00Z",
+    "action_type": "email_send",
+    "actor": "claude_code",
+    "target": "muhammadwaheedairi@gmail.com",
+    "parameters": {
+      "subject": "Invoice INV/2026/00002 - AI Automation Setup",
+      "invoice_number": "INV/2026/00002",
+      "amount": 500.0
+    },
+    "approval_status": "approved",
+    "result": "email_sent"
+  },
+  {
+    "timestamp": "2026-02-27T10:40:30Z",
+    "action_type": "email_send",
+    "actor": "claude_code",
+    "target": "m128waheed@gmail.com",
+    "parameters": {
+      "subject": "Re: Interested in your AI automation services",
+      "type": "business_inquiry"
+    },
+    "approval_status": "approved",
+    "result": "email_sent"
+  },
+  {
+    "timestamp": "2026-02-27T10:53:21Z",
+    "action_type": "whatsapp_triage",
+    "actor": "claude_code",
+    "target": "+92 323 8293672",
+    "parameters": {
+      "message_preview": "Hi, I need an urgent invoice for web development project worth $300",
+      "classification": "invoice_request",
+      "priority": "high"
+    },
+    "approval_status": "pending",
+    "result": "plan_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:53:21Z",
+    "action_type": "whatsapp_triage",
+    "actor": "claude_code",
+    "target": "Roohia",
+    "parameters": {
+      "message_preview": "Urgent meeting",
+      "classification": "urgent_query",
+      "priority": "high"
+    },
+    "approval_status": "pending",
+    "result": "plan_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:54:00Z",
+    "action_type": "odoo_customer_create",
+    "actor": "claude_code",
+    "target": "Client +92 323 8293672",
+    "parameters": {
+      "phone": "+92 323 8293672",
+      "customer_id": 8
+    },
+    "approval_status": "auto_approved",
+    "result": "customer_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:54:30Z",
+    "action_type": "odoo_invoice_create",
+    "actor": "claude_code",
+    "target": "Client +92 323 8293672",
+    "parameters": {
+      "invoice_number": "INV/2026/00003",
+      "amount": 300.0,
+      "description": "Web Development Project"
+    },
+    "approval_status": "auto_approved",
+    "result": "invoice_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:55:00Z",
+    "action_type": "whatsapp_draft",
+    "actor": "claude_code",
+    "target": "+92 323 8293672",
+    "parameters": {
+      "type": "invoice_reply",
+      "invoice_number": "INV/2026/00003"
+    },
+    "approval_status": "pending",
+    "result": "draft_created"
+  },
+  {
+    "timestamp": "2026-02-27T10:55:30Z",
+    "action_type": "whatsapp_draft",
+    "actor": "claude_code",
+    "target": "Roohia",
+    "parameters": {
+      "type": "meeting_clarification"
+    },
+    "approval_status": "pending",
+    "result": "draft_created"
+  },
+  {
+    "timestamp": "2026-02-27T11:00:00Z",
+    "action_type": "whatsapp_send",
+    "actor": "claude_code",
+    "target": "+923180297567",
+    "parameters": {
+      "contact": "Roohia",
+      "type": "meeting_clarification"
+    },
+    "approval_status": "approved",
+    "result": "whatsapp_sent"
+  },
+  {
+    "timestamp": "2026-02-27T11:00:30Z",
+    "action_type": "whatsapp_send",
+    "actor": "claude_code",
+    "target": "+923238293672",
+    "parameters": {
+      "invoice_number": "INV/2026/00003",
+      "type": "invoice_reply"
+    },
+    "approval_status": "approved",
+    "result": "whatsapp_failed",
+    "error": "Send failed - possible incorrect number or contact unavailable"
+  },
+  {
+    "timestamp": "2026-02-27T18:22:00Z",
+    "action_type": "whatsapp_invoice_reply_draft",
+    "actor": "claude_code",
+    "target": "+923238293672",
+    "parameters": {
+      "invoice_number": "INV/2026/00003",
+      "amount": 300.0,
+      "type": "invoice_reply_retry",
+      "classification": "invoice_request"
+    },
+    "approval_status": "pending",
+    "result": "draft_created"
+  },
+  {
+    "timestamp": "2026-02-27T18:28:00Z",
+    "action_type": "whatsapp_send",
+    "actor": "claude_code",
+    "target": "+923238293672",
+    "parameters": {
+      "invoice_number": "INV/2026/00003",
+      "amount": 300.0,
+      "type": "invoice_reply",
+      "message": "Invoice ready - INV/2026/00003"
+    },
+    "approval_status": "approved",
+    "result": "whatsapp_sent"
+  },
+  {
+    "timestamp": "2026-02-27T18:35:00Z",
+    "action_type": "linkedin_post_queued",
+    "actor": "claude_code",
+    "target": "linkedin",
+    "parameters": {
+      "topic": "first_ai_employee_deployment",
+      "type": "milestone_announcement"
+    },
+    "approval_status": "auto_approved",
+    "result": "post_queued"
+  },
+  {
+    "timestamp": "2026-02-27T18:35:30Z",
+    "action_type": "twitter_post_queued",
+    "actor": "claude_code",
+    "target": "twitter",
+    "parameters": {
+      "topic": "first_ai_employee_deployment",
+      "type": "milestone_announcement"
+    },
+    "approval_status": "auto_approved",
+    "result": "post_queued"
+  },
+  {
+    "timestamp": "2026-02-27T18:35:45Z",
+    "action_type": "facebook_post_queued",
+    "actor": "claude_code",
+    "target": "facebook",
+    "parameters": {
+      "topic": "first_ai_employee_deployment",
+      "type": "milestone_announcement"
+    },
+    "approval_status": "auto_approved",
+    "result": "post_queued"
+  },
+  {
+    "timestamp": "2026-02-27T18:36:00Z",
+    "action_type": "instagram_post_queued",
+    "actor": "claude_code",
+    "target": "instagram",
+    "parameters": {
+      "topic": "first_ai_employee_deployment",
+      "type": "milestone_announcement",
+      "note": "requires_image_path"
+    },
+    "approval_status": "pending",
+    "result": "post_queued"
+  },
+  {
+    "timestamp": "2026-02-27T18:43:59Z",
+    "action_type": "twitter_post",
+    "actor": "claude_code",
+    "target": "twitter",
+    "parameters": {
+      "topic": "first_ai_employee_deployment",
+      "type": "milestone_announcement"
+    },
+    "approval_status": "auto_approved",
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-27T18:49:28Z",
+    "action_type": "linkedin_post",
+    "actor": "claude_code",
+    "target": "linkedin",
+    "parameters": {
+      "topic": "first_ai_employee_deployment",
+      "type": "milestone_announcement"
+    },
+    "approval_status": "auto_approved",
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-27T18:52:14Z",
+    "action_type": "facebook_post",
+    "actor": "claude_code",
+    "target": "facebook",
+    "parameters": {
+      "topic": "first_ai_employee_deployment",
+      "type": "milestone_announcement"
+    },
+    "approval_status": "auto_approved",
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-27T18:56:32Z",
+    "action_type": "instagram_post",
+    "actor": "claude_code",
+    "target": "instagram",
+    "parameters": {
+      "topic": "first_ai_employee_deployment",
+      "type": "milestone_announcement",
+      "image": "poster.png"
+    },
+    "approval_status": "auto_approved",
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-27T19:04:57Z",
+    "action_type": "twitter_post",
+    "actor": "claude_code",
+    "target": "twitter",
+    "parameters": {
+      "topic": "ai_employee_capabilities",
+      "type": "capabilities_highlight"
+    },
+    "approval_status": "auto_approved",
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-27T19:09:20Z",
+    "action_type": "instagram_post",
+    "actor": "claude_code",
+    "target": "instagram",
+    "parameters": {
+      "topic": "ai_employee_24_7",
+      "type": "capabilities_highlight",
+      "image": "poster.png"
+    },
+    "approval_status": "auto_approved",
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-27T19:13:00Z",
+    "action_type": "twitter_post",
+    "actor": "claude_code",
+    "target": "twitter",
+    "parameters": {
+      "topic": "waheedai_solutions_launch",
+      "type": "product_announcement"
+    },
+    "approval_status": "auto_approved",
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-27T19:21:07Z",
+    "action_type": "twitter_post",
+    "actor": "claude_code",
+    "target": "twitter",
+    "parameters": {
+      "topic": "ai_employee_power",
+      "type": "value_proposition"
+    },
+    "approval_status": "auto_approved",
+    "result": "posted"
+  },
+  {
+    "timestamp": "2026-02-27T19:25:00Z",
+    "action_type": "ceo_briefing_generated",
+    "actor": "claude_code",
+    "target": "briefing",
+    "parameters": {
+      "period": "2026-02-21 to 2026-02-27",
+      "tasks_completed": 14,
+      "invoices_outstanding": 3,
+      "total_unpaid": 5800.0,
+      "odoo_summary": "included"
+    },
+    "approval_status": "auto_approved",
+    "result": "briefing_created"
+  }
+]

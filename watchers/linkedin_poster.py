@@ -4,6 +4,7 @@ Auto-posts business content to LinkedIn using Playwright.
 Reads post content from /Vault/Plans/linkedin_queue/ folder.
 """
 
+import os
 import time
 from datetime import datetime
 from pathlib import Path
@@ -51,10 +52,15 @@ class LinkedInPoster(BaseWatcher):
             with sync_playwright() as p:
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
-                    headless=True,
-                    args=["--no-sandbox",
-                    "--host-resolver-rules=MAP linkedin.com 150.171.22.12, MAP www.linkedin.com 150.171.22.12", "--disable-dev-shm-usage"],
-                    user_agent=USER_AGENT
+                    headless=not bool(os.environ.get("DISPLAY")),  # ← CHANGE
+                    args=[
+                        "--no-sandbox",
+                        "--disable-dev-shm-usage",
+                        "--disable-blink-features=AutomationControlled",  # ← ADD
+                        "--host-resolver-rules=MAP linkedin.com 150.171.22.12, MAP www.linkedin.com 150.171.22.12",
+                    ],
+                    user_agent=USER_AGENT,
+                    slow_mo=500,                                            # ← ADD
                 )
                 page = browser.new_page() if not browser.pages else browser.pages[0]
                 page.goto("https://www.linkedin.com/feed/")

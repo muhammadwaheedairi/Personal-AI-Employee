@@ -60,6 +60,32 @@ Triggered every Monday at 8 AM or when user asks for briefing:
 5. Update Dashboard.md with Last Briefing date
 6. Move PROMPT_daily_briefing.md to /Done/
 
+## Odoo MCP — Accounting (Gold Tier)
+MCP server: `mcp_servers/odoo_mcp.py`
+Credentials: injected via `env` block in `~/.claude.json` under this project's mcpServers config — never hardcoded in code or `.env`.
+
+### Odoo Tool Usage Rules
+- **create_customer**: Use when a new client needs to be added to Odoo before invoicing
+- **create_invoice**: Use when user asks to generate an invoice — always confirm customer exists first
+- **get_invoices**: Use for accounting audit, CEO briefing revenue section, or when user asks for invoice list
+- **get_customers**: Use to verify customer exists before creating invoice
+- **get_accounting_summary**: Use every Monday in CEO Briefing to populate revenue section
+
+### Odoo Workflow
+Invoice request detected → `get_customers` to verify → if missing `create_customer` →
+`create_invoice` → log to /Vault/Logs/YYYY-MM-DD.json → update Dashboard.md
+
+### Odoo in CEO Briefing
+Every Monday briefing MUST include Odoo accounting summary:
+1. Call `get_accounting_summary` with period=`this_month`
+2. Add revenue data to /Vault/Briefings/{date}_Briefing.md under ## Revenue section
+3. Flag any unpaid invoices as bottlenecks
+
+### Odoo Security Rules
+- Invoice creation does NOT require HITL (it is non-destructive)
+- Payment marking ALWAYS requires human approval via /Pending_Approval
+- Never store Odoo credentials in code or vault — use `~/.claude.json` env block only
+
 ## Code style
 - Python 3.13+, type hints on all function signatures
 - All watchers extend BaseWatcher from `watchers/base_watcher.py`

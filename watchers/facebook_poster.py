@@ -4,6 +4,7 @@ Auto-posts to Facebook using Playwright.
 """
 
 import json
+import os
 import time
 from datetime import datetime
 from pathlib import Path
@@ -14,10 +15,11 @@ from watchers.base_watcher import BaseWatcher
 from watchers.config import Config
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-SESSION_PATH = ".facebook_session"
+SESSION_PATH = Config.FACEBOOK_SESSION_PATH
 BROWSER_ARGS = [
     "--no-sandbox",
     "--disable-dev-shm-usage",
+    "--disable-blink-features=AutomationControlled",  # ← ADD
     "--host-resolver-rules=MAP www.facebook.com 157.240.202.35, MAP facebook.com 157.240.202.35",
 ]
 
@@ -80,9 +82,10 @@ class FacebookPoster(BaseWatcher):
             with sync_playwright() as p:
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
-                    headless=True,
+                    headless=not bool(os.environ.get("DISPLAY")),  # ← CHANGE
                     args=BROWSER_ARGS,
                     user_agent=USER_AGENT,
+                    slow_mo=80,                                     # ← ADD
                 )
                 browser.add_cookies(pw_cookies)
                 page = browser.pages[0] if browser.pages else browser.new_page()
@@ -124,25 +127,33 @@ class FacebookPoster(BaseWatcher):
                     text_area.fill(text)
                     time.sleep(2)
 
-                # Step 1: Next button click karo
-                next_btn = page.get_by_role("button", name="Next", exact=True)
-                if not next_btn:
-                    self.logger.error("Next button not found!")
+                # Step 1: Next button — JS click to bypass overlay intercept
+                try:
+                    page.wait_for_selector('[aria-label="Next"]', timeout=10000)
+                    page.evaluate("""
+                        document.querySelector('[aria-label="Next"]').click()
+                    """)
+                    time.sleep(3)
+                    self.logger.info("Clicked Next - Post settings page...")
+                except Exception as e:
+                    self.logger.error(f"Next button not found: {e}")
                     browser.close()
                     return False
 
-                next_btn.click()
-                time.sleep(3)
-                self.logger.info("Clicked Next - Post settings page...")
-
-                # Step 2: Post button click karo
-                post_btn = page.get_by_role("button", name="Post", exact=True)
-                if not post_btn:
-                    self.logger.error("Post button not found!")
-                    browser.close()
-                    return False
-
-                post_btn.click()
+                # Step 2: Post button — JS click
+                try:
+                    page.wait_for_selector('[aria-label="Post"]', timeout=10000)
+                    page.evaluate("""
+                        document.querySelector('[aria-label="Post"]').click()
+                    """)
+                except Exception:
+                    # Fallback text-based
+                    try:
+                        page.locator('div[role="button"]:has-text("Post")').last.click()
+                    except Exception as e:
+                        self.logger.error(f"Post button not found: {e}")
+                        browser.close()
+                        return False
                 time.sleep(5)
                 self.logger.info("Posted to Facebook successfully!")
                 browser.close()

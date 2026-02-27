@@ -4,6 +4,7 @@ Monitors WhatsApp Web for urgent messages using Playwright.
 """
 
 import json
+import os
 import time
 import urllib.parse
 from datetime import datetime
@@ -19,6 +20,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 BROWSER_ARGS = [
     "--no-sandbox",
     "--disable-dev-shm-usage",
+    "--disable-blink-features=AutomationControlled",  # ← ADD
     "--host-resolver-rules=MAP web.whatsapp.com 157.240.227.60",
 ]
 
@@ -57,9 +59,10 @@ class WhatsAppWatcher(BaseWatcher):
             with sync_playwright() as p:
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
-                    headless=True,
+                    headless=not bool(os.environ.get("DISPLAY")),  # ← CHANGE
                     args=BROWSER_ARGS,
                     user_agent=USER_AGENT,
+                    slow_mo=80,                                     # ← ADD
                 )
                 page = browser.pages[0] if browser.pages else browser.new_page()
                 page.goto("https://web.whatsapp.com", wait_until="domcontentloaded")
@@ -147,9 +150,10 @@ msg_id: {message['id']}
             with sync_playwright() as p:
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
-                    headless=True,
+                    headless=not bool(os.environ.get("DISPLAY")),  # ← CHANGE
                     args=BROWSER_ARGS,
                     user_agent=USER_AGENT,
+                    slow_mo=80,                                     # ← ADD
                 )
                 page = browser.new_page()
 

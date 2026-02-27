@@ -5,6 +5,7 @@ No API cost - uses web interface directly.
 """
 
 import json
+import os
 import time
 from datetime import datetime
 from pathlib import Path
@@ -15,7 +16,7 @@ from watchers.base_watcher import BaseWatcher
 from watchers.config import Config
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-SESSION_PATH = ".twitter_session"
+SESSION_PATH = Config.TWITTER_SESSION_PATH
 
 
 class TwitterPoster(BaseWatcher):
@@ -90,7 +91,6 @@ class TwitterPoster(BaseWatcher):
         return pw_cookies
 
     def _post_tweet(self, text: str) -> bool:
-        """Post tweet using Playwright - LinkedIn approach."""
         try:
             pw_cookies = self._load_cookies()
             if not pw_cookies:
@@ -99,17 +99,18 @@ class TwitterPoster(BaseWatcher):
             with sync_playwright() as p:
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
-                    headless=True,
+                    headless=not bool(os.environ.get("DISPLAY")),  # ← CHANGE
                     args=[
                         "--no-sandbox",
                         "--disable-dev-shm-usage",
+                        "--disable-blink-features=AutomationControlled",  # ← ADD
                         "--host-resolver-rules=MAP x.com 172.66.0.227, MAP twitter.com 172.66.0.227",
                     ],
                     user_agent=USER_AGENT,
+                    slow_mo=80,                                            # ← ADD
                 )
                 browser.add_cookies(pw_cookies)
 
-                # LinkedIn approach: use existing page
                 page = browser.pages[0] if browser.pages else browser.new_page()
                 page.goto("https://x.com/home", wait_until="domcontentloaded")
                 self.logger.info("Waiting for X/Twitter to load...")
@@ -141,7 +142,6 @@ class TwitterPoster(BaseWatcher):
                     browser.close()
                     return False
 
-                # LinkedIn style: fill directly
                 tweet_box.click()
                 time.sleep(2)
                 tweet_box.fill(text)
@@ -163,10 +163,8 @@ class TwitterPoster(BaseWatcher):
                     browser.close()
                     return False
 
-                page.keyboard.press("Escape")
-                time.sleep(1)
                 post_btn.click(force=True)
-                time.sleep(5)
+                time.sleep(10)
                 self.logger.info("Tweet posted successfully!")
                 browser.close()
                 return True

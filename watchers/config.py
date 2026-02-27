@@ -42,3 +42,10 @@ class Config:
     PENDING      = VAULT_PATH / "Pending_Approval"
     APPROVED     = VAULT_PATH / "Approved"
     REJECTED     = VAULT_PATH / "Rejected"
+    # ── Twitter ───────────────────────────────────────────────────── #
+    TWITTER_SESSION_PATH = os.getenv("TWITTER_SESSION_PATH", "./.twitter_session")
+    TWITTER_CHECK_INTERVAL = int(os.getenv("TWITTER_CHECK_INTERVAL", "300"))
+
+    # ── Facebook ──────────────────────────────────────────────────── #
+    FACEBOOK_SESSION_PATH = os.getenv("FACEBOOK_SESSION_PATH", "./.facebook_session")
+    FACEBOOK_CHECK_INTERVAL = int(os.getenv("FACEBOOK_CHECK_INTERVAL", "300"))
