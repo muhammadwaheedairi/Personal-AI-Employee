@@ -2,6 +2,7 @@
 Twitter/X Poster - Gold Tier
 Auto-posts to Twitter/X using Playwright (browser automation).
 No API cost - uses web interface directly.
+Session managed via cookies.json — refresh manually when expired.
 """
 
 import json
@@ -40,8 +41,6 @@ class TwitterPoster(BaseWatcher):
 
     def create_action_file(self, item: Path) -> Path:
         tweet_text = self._extract_post_text(item)
-
-        # 250 character limit
         if len(tweet_text) > 250:
             tweet_text = tweet_text[:247] + "..."
 
@@ -74,7 +73,7 @@ class TwitterPoster(BaseWatcher):
     def _load_cookies(self) -> list:
         cookies_file = self.session_path / "cookies.json"
         if not cookies_file.exists():
-            self.logger.error("cookies.json not found in .twitter_session/")
+            self.logger.error("No cookies.json found! Run session setup first.")
             return []
         with open(cookies_file) as f:
             cookies_data = json.load(f)
@@ -82,13 +81,24 @@ class TwitterPoster(BaseWatcher):
         for c in cookies_data:
             cookie = {
                 "name": c["name"], "value": c["value"],
-                "domain": c["domain"], "path": c.get("path", "/"),
-                "secure": c.get("secure", False), "httpOnly": c.get("httpOnly", False),
+                "domain": c.get("domain", ".x.com"),
+                "path": c.get("path", "/"),
+                "secure": c.get("secure", False),
+                "httpOnly": c.get("httpOnly", False),
             }
             if c.get("expirationDate"):
                 cookie["expires"] = int(c["expirationDate"])
+            elif c.get("expires") and c["expires"] > 0:
+                cookie["expires"] = int(c["expires"])
             pw_cookies.append(cookie)
         return pw_cookies
+
+    def _save_cookies(self, browser) -> None:
+        cookies = browser.cookies()
+        cookies_file = self.session_path / "cookies.json"
+        with open(cookies_file, "w") as f:
+            json.dump(cookies, f, indent=2)
+        self.logger.info(f"Session saved: {len(cookies)} cookies")
 
     def _post_tweet(self, text: str) -> bool:
         try:
@@ -99,32 +109,32 @@ class TwitterPoster(BaseWatcher):
             with sync_playwright() as p:
                 browser = p.chromium.launch_persistent_context(
                     str(self.session_path),
-                    headless=not bool(os.environ.get("DISPLAY")),  # ← CHANGE
+                    headless=not bool(os.environ.get("DISPLAY")),
                     args=[
                         "--no-sandbox",
                         "--disable-dev-shm-usage",
-                        "--disable-blink-features=AutomationControlled",  # ← ADD
+                        "--disable-blink-features=AutomationControlled",
                         "--host-resolver-rules=MAP x.com 172.66.0.227, MAP twitter.com 172.66.0.227",
                     ],
                     user_agent=USER_AGENT,
-                    slow_mo=80,                                            # ← ADD
+                    slow_mo=80,
                 )
-                browser.add_cookies(pw_cookies)
 
+                browser.add_cookies(pw_cookies)
                 page = browser.pages[0] if browser.pages else browser.new_page()
                 page.goto("https://x.com/home", wait_until="domcontentloaded")
                 self.logger.info("Waiting for X/Twitter to load...")
                 time.sleep(20)
 
-                title = page.title()
-                self.logger.info(f"Page title: {title}")
+                self.logger.info(f"Page title: {page.title()}")
 
-                if "login" in page.url.lower():
-                    self.logger.error("Twitter session expired!")
+                # Session expired check
+                if "login" in page.url.lower() or "i/flow" in page.url.lower():
+                    self.logger.error("Session expired! Please refresh cookies.json manually.")
                     browser.close()
                     return False
 
-                # Tweet box dhundo
+                # Find tweet box
                 tweet_box = None
                 for selector in [
                     '[data-testid="tweetTextarea_0"]',
@@ -142,29 +152,55 @@ class TwitterPoster(BaseWatcher):
                     browser.close()
                     return False
 
+                # Click and type
                 tweet_box.click()
                 time.sleep(2)
-                tweet_box.fill(text)
-                time.sleep(2)
+                self.logger.info("Typing tweet via keyboard...")
+                page.keyboard.type(text, delay=30)
+                time.sleep(3)
 
-                # Post button dhundo
-                post_btn = None
-                for selector in [
-                    '[data-testid="tweetButtonInline"]',
-                    '[data-testid="tweetButton"]',
-                ]:
-                    post_btn = page.query_selector(selector)
-                    if post_btn:
-                        self.logger.info(f"Post button found: {selector}")
-                        break
+                # Verify text entered
+                content = tweet_box.inner_text().strip()
+                self.logger.info(f"Tweet box content: '{content[:80]}'")
 
-                if not post_btn:
-                    self.logger.error("Post button not found!")
+                if not content:
+                    self.logger.error("Text not entered in tweet box!")
+                    page.screenshot(path="/tmp/twitter_debug.png")
                     browser.close()
                     return False
 
-                post_btn.click(force=True)
-                time.sleep(10)
+                # Submit via Ctrl+Enter
+                self.logger.info("Submitting tweet via Ctrl+Enter...")
+                page.keyboard.press("Control+Enter")
+                time.sleep(3)
+
+                # Verify submission
+                submitted = False
+                for i in range(20):
+                    time.sleep(1)
+                    try:
+                        box = page.query_selector('[data-testid="tweetTextarea_0"]')
+                        if box:
+                            content = box.inner_text().strip()
+                            self.logger.info(f"Wait {i+1}s: box='{content[:50]}'")
+                            if content == "":
+                                self.logger.info("Tweet box empty — submitted!")
+                                submitted = True
+                                break
+                        else:
+                            self.logger.info("Tweet box gone — submitted!")
+                            submitted = True
+                            break
+                    except Exception:
+                        submitted = True
+                        break
+
+                if not submitted:
+                    self.logger.error("Tweet submission failed!")
+                    browser.close()
+                    return False
+
+                self._save_cookies(browser)
                 self.logger.info("Tweet posted successfully!")
                 browser.close()
                 return True

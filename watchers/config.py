@@ -20,7 +20,7 @@ class Config:
     # ── Gmail ──────────────────────────────────────────────────────── #
     GMAIL_CREDENTIALS_PATH = os.getenv("GMAIL_CREDENTIALS_PATH", "./credentials.json")
     GMAIL_TOKEN_PATH = os.getenv("GMAIL_TOKEN_PATH", "./watchers/token.pickle")
-    CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL", "120"))          # seconds
+    CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL", "120"))
 
     # ── WhatsApp ───────────────────────────────────────────────────── #
     WHATSAPP_SESSION_PATH = os.getenv("WHATSAPP_SESSION_PATH", "./.whatsapp_session")
@@ -30,6 +30,13 @@ class Config:
     LINKEDIN_SESSION_PATH = os.getenv("LINKEDIN_SESSION_PATH", "./.linkedin_session")
     LINKEDIN_CHECK_INTERVAL = int(os.getenv("LINKEDIN_CHECK_INTERVAL", "300"))
 
+    # ── Twitter ───────────────────────────────────────────────────── #
+    TWITTER_SESSION_PATH = os.getenv("TWITTER_SESSION_PATH", "./.twitter_session")
+    TWITTER_CHECK_INTERVAL = int(os.getenv("TWITTER_CHECK_INTERVAL", "300"))
+
+    # ── Facebook ──────────────────────────────────────────────────── #
+    FACEBOOK_SESSION_PATH = os.getenv("FACEBOOK_SESSION_PATH", "./.facebook_session")
+    FACEBOOK_CHECK_INTERVAL = int(os.getenv("FACEBOOK_CHECK_INTERVAL", "300"))
 
     # ── Behaviour ─────────────────────────────────────────────────── #
     DRY_RUN = os.getenv("DRY_RUN", "false").lower() == "true"
@@ -42,10 +49,3 @@ class Config:
     PENDING      = VAULT_PATH / "Pending_Approval"
     APPROVED     = VAULT_PATH / "Approved"
     REJECTED     = VAULT_PATH / "Rejected"
-    # ── Twitter ───────────────────────────────────────────────────── #
-    TWITTER_SESSION_PATH = os.getenv("TWITTER_SESSION_PATH", "./.twitter_session")
-    TWITTER_CHECK_INTERVAL = int(os.getenv("TWITTER_CHECK_INTERVAL", "300"))
-
-    # ── Facebook ──────────────────────────────────────────────────── #
-    FACEBOOK_SESSION_PATH = os.getenv("FACEBOOK_SESSION_PATH", "./.facebook_session")
-    FACEBOOK_CHECK_INTERVAL = int(os.getenv("FACEBOOK_CHECK_INTERVAL", "300"))

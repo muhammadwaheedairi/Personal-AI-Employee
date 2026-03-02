@@ -9,7 +9,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude-Code_Powered-orange?style=for-the-badge)](https://claude.com/product/claude-code)
 [![License](https://img.shields.io/badge/License-Educational-green?style=for-the-badge)](LICENSE)
 
-*A fully autonomous AI assistant that monitors Gmail, WhatsApp, and 4 social media platforms — processing tasks 24/7 with Odoo accounting integration and human-in-the-loop safety.*
+*A fully autonomous AI assistant that monitors Gmail, WhatsApp, and 3 social media platforms — processing tasks 24/7 with Odoo accounting integration and human-in-the-loop safety.*
 
 [Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Demo](#-demo) • [Gold Tier](#-gold-tier-achievements)
 
@@ -23,14 +23,14 @@ A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the c
 
 - 📧 **Triages Gmail** — Detects urgent emails, drafts replies, routes to approval
 - 💬 **Monitors WhatsApp** — Captures client requests, generates invoices, handles inquiries
-- 📱 **Manages Social Media** — Auto-posts to LinkedIn, Twitter, Facebook, Instagram
+- 📱 **Manages Social Media** — Auto-posts to LinkedIn, Twitter, Facebook
 - 💰 **Odoo Accounting** — Creates invoices, tracks payments, generates financial reports
 - 📊 **CEO Briefings** — Weekly business audits with revenue analysis and bottleneck detection
 - 🧠 **Reasons Autonomously** — Creates multi-step plans, executes tasks, logs everything
 - 🛡️ **Human-in-the-Loop** — Never sends emails, payments, or posts without your approval
 - 🔄 **Ralph Wiggum Loop** — Continuously iterates until tasks are complete
 
-**Gold Tier Achievement:** Full autonomous business operations with 9 watchers, 7 MCP servers, 5 agent skills, and Odoo ERP integration.
+**Gold Tier Achievement:** Full autonomous business operations with 8 watchers, 6 MCP servers, 5 agent skills, and Odoo ERP integration.
 
 ---
 
@@ -45,7 +45,6 @@ A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the c
 | **LinkedIn Poster** | ✅ Active | Auto-publishes business content from queue folder |
 | **Twitter Poster** | ✅ Active | Posts tweets automatically with engagement optimization |
 | **Facebook Poster** | ✅ Active | Publishes to Facebook with rich media support |
-| **Instagram Poster** | ✅ Active | Posts images with captions via Instagram API |
 | **HITL Approval** | ✅ Active | Watches `/Pending_Approval` and executes approved actions |
 | **Filesystem** | ✅ Active | Monitors drop folders for file-based triggers |
 | **Plan Creator** | ✅ Active | Generates multi-step plans from vault tasks |
@@ -62,14 +61,13 @@ All AI functionality is implemented as reusable [Agent Skills](https://docs.anth
 
 ### 🔌 MCP Servers (Action Layer)
 
-7 Model Context Protocol servers for external actions:
+6 Model Context Protocol servers for external actions:
 
 - **email-mcp** — Gmail send/draft via Google API
 - **whatsapp-mcp** — WhatsApp messaging via Playwright
 - **twitter-mcp** — Twitter/X posting with character optimization
 - **facebook-mcp** — Facebook posting with rich media
 - **linkedin-mcp** — LinkedIn publishing with professional formatting
-- **instagram-mcp** — Instagram image posting with captions
 - **odoo-mcp** — Odoo 19 ERP integration (invoices, customers, accounting)
 
 ### 💰 Odoo Accounting Integration (Gold Tier)
@@ -99,14 +97,14 @@ Full ERP integration for business operations:
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        EXTERNAL SOURCES                             │
-│  Gmail │ WhatsApp │ LinkedIn │ Twitter │ Facebook │ Instagram │ Odoo│
-└────┬────┴────┬─────┴────┬─────┴────┬────┴────┬─────┴────┬──────┴───┘
-     │         │          │          │         │          │
-     ▼         ▼          ▼          ▼         ▼          ▼
+│  Gmail │ WhatsApp │ LinkedIn │ Twitter │ Facebook │ Odoo            │
+└────┬────┴────┬─────┴────┬─────┴────┬────┴────┬─────┴──────────────┘
+     │         │          │          │         │
+     ▼         ▼          ▼          ▼         ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│              PERCEPTION LAYER (9 Watchers)                          │
+│              PERCEPTION LAYER (8 Watchers)                          │
 │  Python scripts monitoring external sources continuously            │
-│  Gmail • WhatsApp • LinkedIn • Twitter • Facebook • Instagram       │
+│  Gmail • WhatsApp • LinkedIn • Twitter • Facebook                   │
 │  HITL Approval • Filesystem • Plan Creator                          │
 └──────────────────────────┬──────────────────────────────────────────┘
                            │
@@ -129,10 +127,10 @@ Full ERP integration for business operations:
               ┌────────────┴────────────┐
               ▼                         ▼
 ┌──────────────────────┐   ┌────────────────────────────────┐
-│  HUMAN APPROVAL      │   │   ACTION LAYER (7 MCP Servers) │
+│  HUMAN APPROVAL      │   │   ACTION LAYER (6 MCP Servers) │
 │  Review & Approve    │──▶│   Email • WhatsApp • Social    │
 │  /Pending_Approval   │   │   Twitter • Facebook • LinkedIn│
-└──────────────────────┘   │   Instagram • Odoo ERP         │
+└──────────────────────┘   │   Odoo ERP                     │
                            └────────┬───────────────────────┘
                                     │
                                     ▼
@@ -147,7 +145,7 @@ Full ERP integration for business operations:
 - **Brain:** Claude Code (Sonnet 4.6) with Agent Skills & Ralph Wiggum Loop
 - **Memory:** Obsidian vault (local Markdown)
 - **Senses:** Python 3.13+ watchers (Gmail API, Playwright, Odoo XML-RPC)
-- **Hands:** 7 MCP servers (email, social media, accounting)
+- **Hands:** 6 MCP servers (email, social media, accounting)
 - **Orchestration:** main.py + orchestrator.py with thread-based concurrency
 - **ERP:** Odoo 19 Community Edition (accounting, invoicing, CRM)
 
@@ -205,7 +203,6 @@ uv run python main.py --whatsapp
 uv run python main.py --linkedin
 uv run python main.py --twitter
 uv run python main.py --facebook
-uv run python main.py --instagram
 
 # Dry run mode (safe testing)
 DRY_RUN=true uv run python main.py
@@ -287,26 +284,23 @@ Personal-AI-Employee/
 │   ├── Plans/                      # Multi-step plans
 │   │   ├── linkedin_queue/         # LinkedIn posts
 │   │   ├── twitter_queue/          # Twitter posts
-│   │   ├── facebook_queue/         # Facebook posts
-│   │   └── instagram_queue/        # Instagram posts
+│   │   └── facebook_queue/         # Facebook posts
 │   ├── Pending_Approval/           # Awaiting human review
 │   ├── Approved/                   # Ready for execution
 │   ├── Done/                       # Completed tasks
 │   │   ├── linkedin_posted/        # Published LinkedIn
 │   │   ├── twitter_posted/         # Published Twitter
-│   │   ├── facebook_posted/        # Published Facebook
-│   │   └── instagram_posted/       # Published Instagram
+│   │   └── facebook_posted/        # Published Facebook
 │   ├── Logs/                       # Audit trail (JSON)
 │   └── Briefings/                  # Weekly CEO reports
 │
-├── watchers/                       # Perception layer (9 watchers)
+├── watchers/                       # Perception layer (8 watchers)
 │   ├── base_watcher.py             # Abstract base with retry logic
 │   ├── gmail_watcher.py            # Email monitoring
 │   ├── whatsapp_watcher.py         # WhatsApp monitoring
 │   ├── linkedin_poster.py          # LinkedIn auto-posting
 │   ├── twitter_poster.py           # Twitter auto-posting
 │   ├── facebook_poster.py          # Facebook auto-posting
-│   ├── instagram_poster.py         # Instagram auto-posting
 │   ├── hitl_approval_watcher.py    # Approval executor
 │   ├── filesystem_watcher.py       # File drop monitoring
 │   ├── plan_creator.py             # Plan generation
@@ -319,13 +313,12 @@ Personal-AI-Employee/
 │   ├── daily-briefing/             # CEO briefing with Odoo
 │   └── browsing-with-playwright/   # Browser automation
 │
-├── mcp_servers/                    # Action layer (7 MCP servers)
+├── mcp_servers/                    # Action layer (6 MCP servers)
 │   ├── email_mcp.py                # Gmail send/draft
 │   ├── whatsapp_mcp.py             # WhatsApp messaging
 │   ├── twitter_mcp.py              # Twitter posting
 │   ├── facebook_mcp.py             # Facebook posting
 │   ├── linkedin_mcp.py             # LinkedIn publishing
-│   ├── instagram_mcp.py            # Instagram posting
 │   └── odoo_mcp.py                 # Odoo ERP integration
 │
 ├── main.py                         # Orchestrator entry point
@@ -362,8 +355,7 @@ Personal-AI-Employee/
 #### 🌐 Full Social Media Suite
 - **Twitter/X Integration** — Auto-posting with character optimization
 - **Facebook Integration** — Rich media posts with engagement tracking
-- **Instagram Integration** — Image posting with captions via API
-- **4 Social Media Watchers** — Automated queue processing for all platforms
+- **3 Social Media Watchers** — Automated queue processing for all platforms
 
 #### 💰 Odoo ERP Integration
 - **Odoo MCP Server** — Full XML-RPC integration with Odoo 19
@@ -394,9 +386,9 @@ Personal-AI-Employee/
 
 **Total Development Time:** ~40 hours
 **Lines of Code:** ~4,500
-**MCP Servers:** 7
+**MCP Servers:** 6
 **Agent Skills:** 5
-**Watchers:** 9
+**Watchers:** 8
 **Test Coverage:** Manual testing with real accounts (Gmail, WhatsApp, Odoo, Social Media)
 
 ---

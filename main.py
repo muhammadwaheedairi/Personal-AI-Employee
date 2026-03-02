@@ -1,17 +1,22 @@
 """
 Personal AI Employee - Main Entry Point
-Run this file to start the full AI Employee (Silver Tier).
+Run this file to start the full AI Employee (Gold Tier).
 All watchers, HITL approval, and scheduling start automatically.
 
 Usage:
     uv run python main.py             # Full orchestrator (all watchers)
     uv run python main.py --gmail     # Gmail watcher only
+    uv run python main.py --whatsapp  # WhatsApp watcher only
+    uv run python main.py --linkedin  # LinkedIn poster only
+    uv run python main.py --facebook  # Facebook poster only
+    uv run python main.py --twitter   # Twitter poster only
+    uv run python main.py --hitl      # HITL approval watcher only
+    uv run python main.py --briefing  # Trigger weekly CEO briefing
     uv run python main.py --dry-run   # Safe mode (no external actions)
 """
 
 import argparse
 import os
-import sys
 
 
 def parse_args() -> argparse.Namespace:
@@ -20,11 +25,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--whatsapp", action="store_true", help="Run WhatsApp watcher only")
     parser.add_argument("--linkedin", action="store_true", help="Run LinkedIn poster only")
     parser.add_argument("--facebook", action="store_true", help="Run Facebook poster only")
-    parser.add_argument("--instagram", action="store_true", help="Run Instagram poster only")
     parser.add_argument("--twitter", action="store_true", help="Run Twitter poster only")
     parser.add_argument("--filesystem", action="store_true", help="Run filesystem watcher only")
     parser.add_argument("--hitl", action="store_true", help="Run HITL approval watcher only")
-    parser.add_argument("--briefing", action="store_true", help="Trigger daily briefing generation")
+    parser.add_argument("--briefing", action="store_true", help="Trigger weekly CEO briefing")
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -53,12 +57,11 @@ def main() -> None:
     elif args.linkedin:
         from watchers.linkedin_poster import LinkedInPoster
         LinkedInPoster().run()
+
     elif args.facebook:
         from watchers.facebook_poster import FacebookPoster
         FacebookPoster().run()
-    elif args.instagram:
-        from watchers.instagram_poster import InstagramPoster
-        InstagramPoster().run()
+
     elif args.twitter:
         from watchers.twitter_poster import TwitterPoster
         TwitterPoster().run()
@@ -72,7 +75,6 @@ def main() -> None:
         HITLApprovalWatcher().run()
 
     elif args.briefing:
-        from watchers.plan_creator import PlanCreator
         from orchestrator import generate_daily_briefing
         generate_daily_briefing()
         print("Daily briefing prompt written to /Plans — run Claude Code to generate it.")
