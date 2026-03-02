@@ -24,12 +24,18 @@ uv run python main.py --briefing      # trigger weekly CEO briefing
 @.claude/skills/gmail-triage/SKILL.md
 @.claude/skills/whatsapp-triage/SKILL.md
 @.claude/skills/linkedin-poster/SKILL.md
+@.claude/skills/facebook-poster/SKILL.md
+@.claude/skills/twitter-poster/SKILL.md
+@.claude/skills/browsing-with-playwright/SKILL.md
 @.claude/skills/daily-briefing/SKILL.md
 
 ## Skill Usage Rules
 - **gmail-triage**: Use when EMAIL_*.md appears in /Needs_Action or user asks to check/triage emails
 - **whatsapp-triage**: Use when WHATSAPP_*.md appears in /Needs_Action or user asks to handle WhatsApp messages
 - **linkedin-poster**: Use when user asks to post on LinkedIn or create business content
+- **facebook-poster**: Use when user asks to post on Facebook, share business updates, announce milestones, or create community-engaging content
+- **twitter-poster**: Use when user asks to post on Twitter/X, share updates, write viral tweets, or create engagement-driving content
+- **browsing-with-playwright**: Use when tasks require web browsing, form submission, web scraping, UI testing, or any browser interaction (NOT for static content - use curl/wget instead)
 - **daily-briefing**: Use when PROMPT_daily_briefing.md appears in /Plans, on Monday mornings, or when user asks for weekly summary/CEO briefing/business audit
 
 ## Vault rules — MUST follow

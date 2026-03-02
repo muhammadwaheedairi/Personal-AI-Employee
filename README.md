@@ -30,7 +30,7 @@ A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the c
 - 🛡️ **Human-in-the-Loop** — Never sends emails, payments, or posts without your approval
 - 🔄 **Ralph Wiggum Loop** — Continuously iterates until tasks are complete
 
-**Gold Tier Achievement:** Full autonomous business operations with 8 watchers, 6 MCP servers, 5 agent skills, and Odoo ERP integration.
+**Gold Tier Achievement:** Full autonomous business operations with 8 watchers, 6 MCP servers, 7 agent skills, and Odoo ERP integration.
 
 ---
 
@@ -56,6 +56,8 @@ All AI functionality is implemented as reusable [Agent Skills](https://docs.anth
 - **`/gmail-triage`** — Classifies emails, creates plans, drafts replies with intent detection
 - **`/whatsapp-triage`** — Detects intent, generates invoices, routes approvals, handles payments
 - **`/linkedin-poster`** — Writes compelling posts from business context with engagement hooks
+- **`/facebook-poster`** — Generates Facebook posts with community-engaging content (40-80 words optimal)
+- **`/twitter-poster`** — Creates viral tweets with strong hooks (250 char max, engagement-focused)
 - **`/daily-briefing`** — Generates Monday CEO briefing with Odoo revenue & bottleneck analysis
 - **`/browsing-with-playwright`** — Browser automation for web scraping and form filling
 
@@ -118,8 +120,9 @@ Full ERP integration for business operations:
                            ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │            REASONING LAYER (Claude Code + Skills)                   │
-│  5 Agent Skills: gmail-triage, whatsapp-triage, linkedin-poster,    │
-│  daily-briefing, browsing-with-playwright                           │
+│  7 Agent Skills: gmail-triage, whatsapp-triage, linkedin-poster,    │
+│  facebook-poster, twitter-poster, daily-briefing,                   │
+│  browsing-with-playwright                                           │
 │  Read → Classify → Plan → Draft → Request Approval                  │
 │  Ralph Wiggum Loop: Iterate until task complete                     │
 └──────────────────────────┬──────────────────────────────────────────┘
@@ -306,10 +309,12 @@ Personal-AI-Employee/
 │   ├── plan_creator.py             # Plan generation
 │   └── config.py                   # Configuration loader
 │
-├── .claude/skills/                 # Agent Skills (5 skills)
+├── .claude/skills/                 # Agent Skills (7 skills)
 │   ├── gmail-triage/               # Email classification & drafting
 │   ├── whatsapp-triage/            # WhatsApp intent detection
 │   ├── linkedin-poster/            # Business content generation
+│   ├── facebook-poster/            # Facebook community content
+│   ├── twitter-poster/             # Twitter/X viral tweets
 │   ├── daily-briefing/             # CEO briefing with Odoo
 │   └── browsing-with-playwright/   # Browser automation
 │
@@ -387,7 +392,7 @@ Personal-AI-Employee/
 **Total Development Time:** ~40 hours
 **Lines of Code:** ~4,500
 **MCP Servers:** 6
-**Agent Skills:** 5
+**Agent Skills:** 7
 **Watchers:** 8
 **Test Coverage:** Manual testing with real accounts (Gmail, WhatsApp, Odoo, Social Media)
 
@@ -467,7 +472,7 @@ Educational use only. Part of the Personal AI Employee Hackathon 0.
 
 **Built with ❤️ using Claude Code**
 
-**Gold Tier Complete** — Full autonomous business operations with 9 watchers, 7 MCP servers, 5 agent skills, and Odoo ERP integration
+**Gold Tier Complete** — Full autonomous business operations with 8 watchers, 6 MCP servers, 7 agent skills, and Odoo ERP integration
 
 [⬆ Back to Top](#-personal-ai-employee)
 
