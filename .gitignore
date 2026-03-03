@@ -22,7 +22,6 @@ watchers/token.pickle
 .linkedin_session/
 .facebook_session/
 .twitter_session/
-.instagram_session/
 
 # Logs
 logs/
@@ -33,3 +32,10 @@ AI_Employee_Vault/.obsidian/workspace*
 
 # Misc
 Personal_AI_Employee_Hackathon.md
+# Platinum additions
+*.pid
+watchdog.log
+cloud_orchestrator.log
+git_sync.log
+watchers/logs/
+uv.lock

@@ -21,13 +21,13 @@ uv run python main.py --briefing      # trigger weekly CEO briefing
 ```
 
 ## Skills
-@.claude/skills/gmail-triage/SKILL.md
-@.claude/skills/whatsapp-triage/SKILL.md
-@.claude/skills/linkedin-poster/SKILL.md
-@.claude/skills/facebook-poster/SKILL.md
-@.claude/skills/twitter-poster/SKILL.md
-@.claude/skills/browsing-with-playwright/SKILL.md
-@.claude/skills/daily-briefing/SKILL.md
+@.qwen/skills/gmail-triage/SKILL.md
+@.qwen/skills/whatsapp-triage/SKILL.md
+@.qwen/skills/linkedin-poster/SKILL.md
+@.qwen/skills/facebook-poster/SKILL.md
+@.qwen/skills/twitter-poster/SKILL.md
+@.qwen/skills/browsing-with-playwright/SKILL.md
+@.qwen/skills/daily-briefing/SKILL.md
 
 ## Skill Usage Rules
 - **gmail-triage**: Use when EMAIL_*.md appears in /Needs_Action or user asks to check/triage emails
@@ -68,7 +68,7 @@ Triggered every Monday at 8 AM or when user asks for briefing:
 
 ## Odoo MCP — Accounting (Gold Tier)
 MCP server: `mcp_servers/odoo_mcp.py`
-Credentials: injected via `env` block in `~/.claude.json` under this project's mcpServers config — never hardcoded in code or `.env`.
+Credentials: injected via `env` block in `~/.qwen/settings.json` under this project's mcpServers config — never hardcoded in code or `.env`.
 
 ### Odoo Tool Usage Rules
 - **create_customer**: Use when a new client needs to be added to Odoo before invoicing
@@ -90,7 +90,7 @@ Every Monday briefing MUST include Odoo accounting summary:
 ### Odoo Security Rules
 - Invoice creation does NOT require HITL (it is non-destructive)
 - Payment marking ALWAYS requires human approval via /Pending_Approval
-- Never store Odoo credentials in code or vault — use `~/.claude.json` env block only
+- Never store Odoo credentials in code or vault — use `~/.qwen/settings.json` env block only
 
 ## Code style
 - Python 3.13+, type hints on all function signatures
@@ -103,3 +103,96 @@ Every Monday briefing MUST include Odoo accounting summary:
 - Payments always require HITL — never auto-approve any payment action
 - Credentials: `.env` file only, never commit (already in .gitignore)
 - WhatsApp/Email sends always require human approval via /Approved folder
+---
+
+## Platinum Tier — Cloud vs Local Zone Rules
+
+### Agent Identity
+- If running on Cloud VM → I am the **Cloud Agent**
+- If running on Local machine → I am the **Local Agent**
+
+### Cloud Agent — Allowed Actions
+```
+✅ Detect Gmail emails
+✅ Create email drafts → write to /Pending_Approval/cloud/
+✅ Create plans → write to /Plans/cloud/
+✅ Create draft invoices in Odoo (no posting)
+✅ Write status updates to /Updates/
+✅ Run git_sync.sh cloud after each task
+```
+
+### Cloud Agent — Forbidden Actions
+```
+❌ NEVER send email directly
+❌ NEVER touch WhatsApp
+❌ NEVER post on social media
+❌ NEVER write directly to Dashboard.md
+❌ NEVER post or pay invoices in Odoo
+```
+
+### Local Agent — Responsibilities
+```
+✅ Process human approvals
+✅ Send final emails via Email MCP
+✅ Send WhatsApp messages via WhatsApp MCP
+✅ Post to social media (Twitter/LinkedIn/Facebook)
+✅ Post Odoo invoices and payments (after approval)
+✅ Update Dashboard.md
+✅ Merge /Updates/ folder into Dashboard.md
+✅ Run git_sync.sh local after each task
+```
+
+### Claim-by-Move Rule
+```
+New task appears in /Needs_Action/
+        ↓
+Move it to /In_Progress/cloud/
+        ↓
+Move succeeded = task is mine ✅
+Move failed = claimed by another agent ⏭️ SKIP
+```
+
+### Folder Zone Ownership
+```
+/Needs_Action/           ← Watchers write here
+/In_Progress/cloud/      ← Cloud claims here
+/In_Progress/local/      ← Local claims here
+/Plans/cloud/            ← Cloud plans
+/Plans/local/            ← Local plans
+/Pending_Approval/cloud/ ← Cloud drafts (Local approves)
+/Updates/                ← Cloud writes status here
+Dashboard.md             ← Local ONLY writes here
+```
+
+### Dashboard Update Rule
+```
+Cloud NEVER writes directly to Dashboard.md
+Cloud writes to → /Updates/update_TIMESTAMP.md
+Local reads /Updates/ → merges into Dashboard.md
+```
+
+### Git Sync Rule
+```
+After every completed task run:
+bash git_sync.sh cloud   # on Cloud VM
+bash git_sync.sh local   # on Local machine
+
+Files that sync:
+✅ AI_Employee_Vault/
+✅ QWEN.md, README.md
+
+Files that NEVER sync:
+❌ .env
+❌ watchers/token.pickle
+❌ .whatsapp_session
+❌ .twitter_session
+❌ .linkedin_session
+❌ .facebook_session
+❌ credentials.json
+```
+
+### Task Completion Signal
+At the end of every autonomous task output:
+```
+TASK_COMPLETE
+```
