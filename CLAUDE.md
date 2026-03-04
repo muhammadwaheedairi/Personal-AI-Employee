@@ -67,7 +67,7 @@ Triggered every Monday at 8 AM or when user asks for briefing:
 
 ## Odoo MCP — Accounting (Gold Tier)
 MCP server: `mcp_servers/odoo_mcp.py`
-Credentials: injected via `env` block in `~/.qwen/settings.json` under this project's mcpServers config — never hardcoded in code or `.env`.
+Credentials: injected via `env` block in `~/.claude/settings.json` under this project's mcpServers config — never hardcoded in code or `.env`.
 
 ### Odoo Tool Usage Rules
 - **create_customer**: Use when a new client needs to be added to Odoo before invoicing
@@ -89,7 +89,7 @@ Every Monday briefing MUST include Odoo accounting summary:
 ### Odoo Security Rules
 - Invoice creation does NOT require HITL (it is non-destructive)
 - Payment marking ALWAYS requires human approval via /Pending_Approval
-- Never store Odoo credentials in code or vault — use `~/.qwen/settings.json` env block only
+- Never store Odoo credentials in code or vault — use `~/.claude/settings.json` env block only
 
 ## Code style
 - Python 3.13+, type hints on all function signatures

@@ -5,7 +5,59 @@ All notable changes to the Personal AI Employee project will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.0] - 2026-02-23 - Silver Tier Complete 🥈
+## [0.4.0] - 2026-03-04 - Platinum Tier Complete 💎
+
+### Added - Cloud Deployment & 24/7 Operation
+- **Cloud Orchestrator** — 24/7 drafting agent running on cloud VM
+- **Watchdog Process** — Auto-restart failed processes for continuous uptime
+- **Git Sync** — Bidirectional vault synchronization (Cloud ↔ GitHub ↔ Local)
+- **Work-Zone Isolation** — `/In_Progress/{cloud,local}` prevents agent conflicts
+- **Approval Zones** — `/Pending_Approval/{cloud,local}` for review separation
+- **Health Monitoring** — Status updates written to `/Updates/` folder every 10 minutes
+- **Claim-by-Move** — First agent to move task file wins (prevents race conditions)
+
+### Added - Enhanced Security & Isolation
+- **Local-Only Actions** — WhatsApp, social posting, payments never on cloud
+- **Cloud-Only Drafting** — Email drafts, social drafts, Odoo drafts
+- **Session Isolation** — Browser sessions stored locally, never in vault or GitHub
+- **Process Monitoring** — PID tracking for watchdog service
+- **Git Sync Security** — Secrets excluded from sync via `.gitignore`
+
+### Changed - Migration to Claude Code
+- Migrated from Qwen Code to Claude Code
+- Renamed `.qwen/` directory to `.claude/`
+- Updated `QWEN.md` → `CLAUDE.md` with Platinum tier references
+- Updated all skill paths from `@.qwen/skills/` to `@.claude/skills/`
+- Updated Dashboard footer: Qwen Code → Claude Code
+- Removed Instagram watcher references (not implemented)
+
+### Changed - Documentation Updates
+- **README.md** — Updated to Platinum Tier with cloud deployment architecture
+- **CLAUDE.md** — Updated tier references and settings paths
+- **Architecture Diagram** — Added cloud/local split visualization
+- **Project Structure** — Documented new work-zone folders
+- **Statistics** — Updated to 10 watchers, 60 hours dev time, 6,500 LOC
+
+### Fixed
+- Added `gmail.send` scope to Gmail watcher for reply functionality
+- Updated Odoo credentials path references in CLAUDE.md
+
+### Removed - Vault Cleanup
+- Deleted old test data from `/Done/` folders (19 files)
+- Removed test briefing: `2026-02-27_Briefing.md`
+- Cleaned up test logs: `2026-02-27.json`
+- Removed processed tracking files
+- Deleted empty `.gitkeep` files from work-zone folders
+- Cleaned up Recent Activity section in Dashboard
+
+### Infrastructure
+- Total watchers: 10 (8 local + 2 cloud)
+- Deployment zones: 2 (Cloud VM + Local Machine)
+- Development time: ~60 hours
+- Lines of code: ~6,500
+- Test coverage: Manual testing with real accounts + cloud VM deployment
+
+## [0.3.0] - 2026-02-27 - Gold Tier Complete 🥇
 
 ### Added
 - **LinkedIn Poster Watcher** — Auto-generates and publishes business content
