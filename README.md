@@ -4,14 +4,14 @@
 
 ### Your Autonomous Digital FTE — Built with Claude Code & Obsidian
 
-[![Gold Tier](https://img.shields.io/badge/Hackathon-Gold_Tier_Complete-gold?style=for-the-badge)](./Personal_AI_Employee_Hackathon.md)
+[![Platinum Tier](https://img.shields.io/badge/Hackathon-Platinum_Tier_Complete-9cf?style=for-the-badge)](./Personal_AI_Employee_Hackathon.md)
 [![Python 3.13+](https://img.shields.io/badge/Python-3.13+-blue?style=for-the-badge&logo=python)](https://python.org)
 [![Claude Code](https://img.shields.io/badge/Claude-Code_Powered-orange?style=for-the-badge)](https://claude.com/product/claude-code)
 [![License](https://img.shields.io/badge/License-Educational-green?style=for-the-badge)](LICENSE)
 
-*A fully autonomous AI assistant that monitors Gmail, WhatsApp, and 3 social media platforms — processing tasks 24/7 with Odoo accounting integration and human-in-the-loop safety.*
+*A fully autonomous AI assistant that monitors Gmail, WhatsApp, and 3 social media platforms — processing tasks 24/7 with Odoo accounting integration, cloud deployment, and human-in-the-loop safety.*
 
-[Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Demo](#-demo) • [Gold Tier](#-gold-tier-achievements)
+[Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Demo](#-demo) • [Platinum Tier](#-platinum-tier-achievements)
 
 </div>
 
@@ -19,18 +19,20 @@
 
 ## 🎯 What is This?
 
-A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the cost of a human employee. This Gold Tier AI Employee:
+A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the cost of a human employee. This Platinum Tier AI Employee:
 
 - 📧 **Triages Gmail** — Detects urgent emails, drafts replies, routes to approval
 - 💬 **Monitors WhatsApp** — Captures client requests, generates invoices, handles inquiries
-- 📱 **Manages Social Media** — Auto-posts to LinkedIn, Twitter, Facebook
+- 📱 **Manages Social Media** — Auto-posts to LinkedIn, Twitter, Facebook with engagement optimization
 - 💰 **Odoo Accounting** — Creates invoices, tracks payments, generates financial reports
 - 📊 **CEO Briefings** — Weekly business audits with revenue analysis and bottleneck detection
 - 🧠 **Reasons Autonomously** — Creates multi-step plans, executes tasks, logs everything
 - 🛡️ **Human-in-the-Loop** — Never sends emails, payments, or posts without your approval
-- 🔄 **Ralph Wiggum Loop** — Continuously iterates until tasks are complete
+- 🔄 **Continuous Operation** — Watchdog process ensures 24/7 uptime with auto-restart
+- ☁️ **Cloud/Local Split** — Cloud agent drafts, local agent executes sensitive actions
+- 🔄 **Git Sync** — Vault synchronization between cloud and local via GitHub
 
-**Gold Tier Achievement:** Full autonomous business operations with 8 watchers, 6 MCP servers, 7 agent skills, and Odoo ERP integration.
+**Platinum Tier Achievement:** Full autonomous business operations with 10 watchers, 6 MCP servers, 7 agent skills, Odoo ERP integration, cloud deployment, and 24/7 monitoring.
 
 ---
 
@@ -38,16 +40,18 @@ A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the c
 
 ### 🔄 Autonomous Watchers
 
-| Watcher | Status | Purpose |
-|---------|--------|---------|
-| **Gmail Watcher** | ✅ Active | Monitors inbox for urgent/important emails every 2 minutes |
-| **WhatsApp Watcher** | ✅ Active | Captures urgent messages via Playwright automation |
-| **LinkedIn Poster** | ✅ Active | Auto-publishes business content from queue folder |
-| **Twitter Poster** | ✅ Active | Posts tweets automatically with engagement optimization |
-| **Facebook Poster** | ✅ Active | Publishes to Facebook with rich media support |
-| **HITL Approval** | ✅ Active | Watches `/Pending_Approval` and executes approved actions |
-| **Filesystem** | ✅ Active | Monitors drop folders for file-based triggers |
-| **Plan Creator** | ✅ Active | Generates multi-step plans from vault tasks |
+| Watcher | Status | Purpose | Zone |
+|---------|--------|---------|------|
+| **Gmail Watcher** | ✅ Active | Monitors inbox for urgent/important emails every 2 minutes | Cloud/Local |
+| **WhatsApp Watcher** | ✅ Active | Captures urgent messages via Playwright automation | Local Only |
+| **LinkedIn Poster** | ✅ Active | Auto-publishes business content from queue folder | Local Only |
+| **Twitter Poster** | ✅ Active | Posts tweets automatically with engagement optimization | Local Only |
+| **Facebook Poster** | ✅ Active | Publishes to Facebook with rich media support | Local Only |
+| **HITL Approval** | ✅ Active | Watches `/Pending_Approval` and executes approved actions | Local Only |
+| **Filesystem** | ✅ Active | Monitors drop folders for file-based triggers | Both |
+| **Plan Creator** | ✅ Active | Generates multi-step plans from vault tasks | Both |
+| **Cloud Orchestrator** | ✅ Active | 24/7 cloud agent for drafting (no sending) | Cloud Only |
+| **Watchdog** | ✅ Active | Monitors and auto-restarts critical processes | Cloud Only |
 
 ### 🧠 Claude Agent Skills
 
@@ -72,7 +76,7 @@ All AI functionality is implemented as reusable [Agent Skills](https://docs.anth
 - **linkedin-mcp** — LinkedIn publishing with professional formatting
 - **odoo-mcp** — Odoo 19 ERP integration (invoices, customers, accounting)
 
-### 💰 Odoo Accounting Integration (Gold Tier)
+### 💰 Odoo Accounting Integration
 
 Full ERP integration for business operations:
 
@@ -89,8 +93,12 @@ Full ERP integration for business operations:
 - ✅ **DRY_RUN Mode** — Test safely without external actions
 - ✅ **Rate Limiting** — Max 10 email actions per hour
 - ✅ **Credential Isolation** — All secrets in `.env`, never in vault
-- ✅ **Error Recovery** — Automatic retry with exponential backoff
-- ✅ **Ralph Wiggum Loop** — Continuous iteration until task completion
+- ✅ **Error Recovery** — Automatic retry with exponential backoff (3 attempts, 10s delay)
+- ✅ **Graceful Degradation** — 5x backoff after 5 consecutive errors
+- ✅ **Work-Zone Isolation** — Cloud drafts only, local executes sensitive actions
+- ✅ **Git Sync Security** — Vault syncs via GitHub, secrets never committed
+- ✅ **Session Management** — Browser sessions stored locally, never in vault
+- ✅ **Watchdog Monitoring** — Auto-restart failed processes for 24/7 uptime
 
 ---
 
@@ -104,53 +112,68 @@ Full ERP integration for business operations:
      │         │          │          │         │
      ▼         ▼          ▼          ▼         ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│              PERCEPTION LAYER (8 Watchers)                          │
-│  Python scripts monitoring external sources continuously            │
-│  Gmail • WhatsApp • LinkedIn • Twitter • Facebook                   │
-│  HITL Approval • Filesystem • Plan Creator                          │
+│              PERCEPTION LAYER (10 Watchers)                         │
+│  Cloud: Gmail Watcher (24/7) + Cloud Orchestrator                  │
+│  Local: WhatsApp • LinkedIn • Twitter • Facebook • HITL            │
+│         Filesystem • Plan Creator                                   │
+│  Watchdog: Auto-restart failed processes                            │
 └──────────────────────────┬──────────────────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│            OBSIDIAN VAULT (Knowledge Base)                          │
-│  /Needs_Action → /Plans → /Pending_Approval → /Approved → /Done     │
-│  Dashboard.md │ Business_Goals.md │ Logs/ │ Briefings/              │
-└──────────────────────────┬──────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│            REASONING LAYER (Claude Code + Skills)                   │
-│  7 Agent Skills: gmail-triage, whatsapp-triage, linkedin-poster,    │
-│  facebook-poster, twitter-poster, daily-briefing,                   │
-│  browsing-with-playwright                                           │
-│  Read → Classify → Plan → Draft → Request Approval                  │
-│  Ralph Wiggum Loop: Iterate until task complete                     │
+│            OBSIDIAN VAULT (Knowledge Base + Git Sync)               │
+│  /Needs_Action → /In_Progress/{cloud,local} → /Plans/{cloud,local}  │
+│  → /Pending_Approval/{cloud,local} → /Approved → /Done              │
+│  Dashboard.md │ Business_Goals.md │ Logs/ │ Briefings/ │ Updates/   │
+│  Git Sync: Cloud ↔ GitHub ↔ Local (vault only, secrets excluded)   │
 └──────────────────────────┬──────────────────────────────────────────┘
                            │
               ┌────────────┴────────────┐
               ▼                         ▼
 ┌──────────────────────┐   ┌────────────────────────────────┐
-│  HUMAN APPROVAL      │   │   ACTION LAYER (6 MCP Servers) │
-│  Review & Approve    │──▶│   Email • WhatsApp • Social    │
-│  /Pending_Approval   │   │   Twitter • Facebook • LinkedIn│
-└──────────────────────┘   │   Odoo ERP                     │
-                           └────────┬───────────────────────┘
-                                    │
-                                    ▼
-                           ┌─────────────────────────┐
-                           │   EXTERNAL ACTIONS      │
-                           │ Send │ Post │ Invoice   │
-                           └─────────────────────────┘
+│  CLOUD AGENT (24/7)  │   │   LOCAL AGENT (On-Demand)      │
+│  Claude Code         │   │   Claude Code                  │
+│  - Email drafts      │   │   - WhatsApp replies           │
+│  - Social drafts     │   │   - Email sending              │
+│  - Odoo drafts       │   │   - Social posting             │
+│  - NO sending        │   │   - Odoo posting               │
+│  - NO WhatsApp       │   │   - Payment execution          │
+└──────────┬───────────┘   └────────┬───────────────────────┘
+           │                        │
+           └────────┬───────────────┘
+                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│  HUMAN APPROVAL (HITL Watcher)                                      │
+│  Review drafts in /Pending_Approval/{cloud,local}                   │
+│  Move to /Approved → Local agent executes                           │
+└──────────────────────────┬──────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│            ACTION LAYER (6 MCP Servers - Local Only)                │
+│  Email • WhatsApp • Twitter • Facebook • LinkedIn • Odoo ERP        │
+└────────┬────────────────────────────────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────┐
+│   EXTERNAL ACTIONS      │
+│ Send │ Post │ Invoice   │
+└─────────────────────────┘
 ```
 
 ### Tech Stack
 
-- **Brain:** Claude Code (Sonnet 4.6) with Agent Skills & Ralph Wiggum Loop
-- **Memory:** Obsidian vault (local Markdown)
+- **Brain:** Claude Code (Sonnet 4.6) with Agent Skills
+- **Memory:** Obsidian vault (local Markdown) + Git sync for cloud/local coordination
 - **Senses:** Python 3.13+ watchers (Gmail API, Playwright, Odoo XML-RPC)
 - **Hands:** 6 MCP servers (email, social media, accounting)
-- **Orchestration:** main.py + orchestrator.py with thread-based concurrency
+- **Orchestration:**
+  - Local: main.py + orchestrator.py (thread-based concurrency)
+  - Cloud: cloud_orchestrator.py (24/7 drafting agent)
+  - Monitoring: watchdog.py (auto-restart failed processes)
+- **Sync:** git_sync.sh (vault synchronization via GitHub)
 - **ERP:** Odoo 19 Community Edition (accounting, invoicing, CRM)
+- **Deployment:** Cloud VM (24/7) + Local machine (on-demand)
 
 ---
 
@@ -164,6 +187,8 @@ Full ERP integration for business operations:
 - Gmail account with API access
 - Odoo 19 Community Edition (optional, for accounting)
 - Node.js 24+ (for MCP servers)
+- Cloud VM (optional, for 24/7 operation)
+- Git (for vault synchronization)
 
 ### Installation
 
@@ -192,10 +217,18 @@ uv run python main.py --gmail
 
 # 7. Open Obsidian vault
 # Open Obsidian → "Open folder as vault" → select AI_Employee_Vault/
+
+# 8. (Optional) Set up cloud deployment
+# On cloud VM:
+# - Clone repository
+# - Configure .env (same as local)
+# - Set up git credentials for auto-sync
+# - Run: uv run python watchdog.py
 ```
 
 ### Running the System
 
+#### Local Agent (On-Demand)
 ```bash
 # Run all watchers (recommended)
 uv run python main.py
@@ -206,12 +239,28 @@ uv run python main.py --whatsapp
 uv run python main.py --linkedin
 uv run python main.py --twitter
 uv run python main.py --facebook
+uv run python main.py --hitl
 
 # Dry run mode (safe testing)
 DRY_RUN=true uv run python main.py
 
 # Trigger daily briefing with Odoo summary
 uv run python main.py --briefing
+```
+
+#### Cloud Agent (24/7 Deployment)
+```bash
+# On cloud VM - start cloud orchestrator
+uv run python cloud_orchestrator.py
+
+# Start watchdog (monitors and auto-restarts processes)
+uv run python watchdog.py
+
+# Manual git sync (automatic every 2.5 min in cloud orchestrator)
+bash git_sync.sh cloud
+
+# Setup cron for scheduled tasks
+bash cron_setup.sh install
 ```
 
 ### Using Agent Skills
@@ -237,6 +286,21 @@ claude
 ---
 
 ## 📊 Demo
+
+### Cloud/Local Workflow
+
+**Cloud Agent (24/7):**
+1. **Detection:** Gmail watcher finds urgent email → creates `EMAIL_*.md` in `/Needs_Action`
+2. **Claim:** Cloud orchestrator claims task → moves to `/In_Progress/cloud/`
+3. **Draft:** Claude drafts reply → writes to `/Pending_Approval/cloud/EMAIL_reply_*.md`
+4. **Sync:** Git sync pushes draft to GitHub
+5. **Local Pull:** Local machine pulls latest vault state
+
+**Local Agent (On-Demand):**
+6. **Approval:** You review draft in `/Pending_Approval/cloud/` → move to `/Approved`
+7. **Execute:** HITL watcher detects approval → email MCP sends
+8. **Archive:** Logs action → moves files to `/Done`
+9. **Sync:** Git sync pushes completion status to GitHub
 
 ### Email Triage Workflow
 
@@ -273,40 +337,59 @@ claude
 5. **Report Generation:** Writes comprehensive briefing to `/Vault/Briefings/`
 6. **Dashboard Update:** Updates Dashboard.md with executive summary
 
+### Cloud Deployment & Monitoring
+
+1. **Cloud VM Setup:** Deploy cloud_orchestrator.py + watchdog.py on VPS
+2. **24/7 Operation:** Cloud agent continuously monitors `/Needs_Action`
+3. **Auto-Restart:** Watchdog detects failed process → restarts automatically
+4. **Health Updates:** Status written to `/Updates/` every 10 minutes
+5. **Git Sync:** Vault syncs every 2.5 minutes (cloud → GitHub → local)
+
 ---
 
 ## 📁 Project Structure
 
 ```
 Personal-AI-Employee/
-├── AI_Employee_Vault/              # Obsidian knowledge base
+├── AI_Employee_Vault/              # Obsidian knowledge base (Git synced)
 │   ├── Dashboard.md                # Real-time status
 │   ├── Business_Goals.md           # Revenue targets & KPIs
 │   ├── Company_Handbook.md         # Decision rules
-│   ├── Needs_Action/               # Incoming tasks
+│   ├── Needs_Action/               # Incoming tasks (both agents)
+│   ├── In_Progress/                # Work-zone isolation
+│   │   ├── cloud/                  # Cloud agent claimed tasks
+│   │   └── local/                  # Local agent claimed tasks
 │   ├── Plans/                      # Multi-step plans
-│   │   ├── linkedin_queue/         # LinkedIn posts
-│   │   ├── twitter_queue/          # Twitter posts
-│   │   └── facebook_queue/         # Facebook posts
+│   │   ├── cloud/                  # Cloud agent plans
+│   │   │   ├── linkedin_queue/     # LinkedIn drafts
+│   │   │   ├── twitter_queue/      # Twitter drafts
+│   │   │   └── facebook_queue/     # Facebook drafts
+│   │   └── local/                  # Local agent plans
+│   │       ├── linkedin_queue/     # LinkedIn posts (ready)
+│   │       ├── twitter_queue/      # Twitter posts (ready)
+│   │       └── facebook_queue/     # Facebook posts (ready)
 │   ├── Pending_Approval/           # Awaiting human review
-│   ├── Approved/                   # Ready for execution
+│   │   ├── cloud/                  # Cloud drafts for approval
+│   │   └── local/                  # Local drafts for approval
+│   ├── Approved/                   # Ready for execution (local only)
 │   ├── Done/                       # Completed tasks
 │   │   ├── linkedin_posted/        # Published LinkedIn
 │   │   ├── twitter_posted/         # Published Twitter
 │   │   └── facebook_posted/        # Published Facebook
+│   ├── Updates/                    # Cloud → Local status updates
 │   ├── Logs/                       # Audit trail (JSON)
 │   └── Briefings/                  # Weekly CEO reports
 │
-├── watchers/                       # Perception layer (8 watchers)
+├── watchers/                       # Perception layer (10 watchers)
 │   ├── base_watcher.py             # Abstract base with retry logic
-│   ├── gmail_watcher.py            # Email monitoring
-│   ├── whatsapp_watcher.py         # WhatsApp monitoring
-│   ├── linkedin_poster.py          # LinkedIn auto-posting
-│   ├── twitter_poster.py           # Twitter auto-posting
-│   ├── facebook_poster.py          # Facebook auto-posting
-│   ├── hitl_approval_watcher.py    # Approval executor
-│   ├── filesystem_watcher.py       # File drop monitoring
-│   ├── plan_creator.py             # Plan generation
+│   ├── gmail_watcher.py            # Email monitoring (cloud/local)
+│   ├── whatsapp_watcher.py         # WhatsApp monitoring (local only)
+│   ├── linkedin_poster.py          # LinkedIn auto-posting (local only)
+│   ├── twitter_poster.py           # Twitter auto-posting (local only)
+│   ├── facebook_poster.py          # Facebook auto-posting (local only)
+│   ├── hitl_approval_watcher.py    # Approval executor (local only)
+│   ├── filesystem_watcher.py       # File drop monitoring (both)
+│   ├── plan_creator.py             # Plan generation (both)
 │   └── config.py                   # Configuration loader
 │
 ├── .claude/skills/                 # Agent Skills (7 skills)
@@ -318,7 +401,7 @@ Personal-AI-Employee/
 │   ├── daily-briefing/             # CEO briefing with Odoo
 │   └── browsing-with-playwright/   # Browser automation
 │
-├── mcp_servers/                    # Action layer (6 MCP servers)
+├── mcp_servers/                    # Action layer (6 MCP servers - local only)
 │   ├── email_mcp.py                # Gmail send/draft
 │   ├── whatsapp_mcp.py             # WhatsApp messaging
 │   ├── twitter_mcp.py              # Twitter posting
@@ -326,10 +409,14 @@ Personal-AI-Employee/
 │   ├── linkedin_mcp.py             # LinkedIn publishing
 │   └── odoo_mcp.py                 # Odoo ERP integration
 │
-├── main.py                         # Orchestrator entry point
-├── orchestrator.py                 # Master process with threading
+├── main.py                         # Local orchestrator entry point
+├── orchestrator.py                 # Local master process with threading
+├── cloud_orchestrator.py           # Cloud 24/7 drafting agent
+├── watchdog.py                     # Process monitor & auto-restart
+├── git_sync.sh                     # Vault sync via GitHub
+├── cron_setup.sh                   # Cron job installer
 ├── pyproject.toml                  # Dependencies (uv)
-├── .env                            # Environment config
+├── .env                            # Environment config (never synced)
 ├── CLAUDE.md                       # Claude Code instructions
 ├── Personal_AI_Employee_Hackathon.md  # Architecture blueprint
 └── README.md                       # This file
@@ -337,7 +424,7 @@ Personal-AI-Employee/
 
 ---
 
-## 🏆 Gold Tier Achievements
+## 🏆 Platinum Tier Achievements
 
 ### ✅ All Bronze Requirements
 - Obsidian vault with Dashboard & Company Handbook
@@ -355,10 +442,10 @@ Personal-AI-Employee/
 - Cron Scheduling for daily briefing
 - 4 Agent Skills
 
-### ✅ Gold Tier Additions
+### ✅ Gold Tier Requirements (Completed)
 
 #### 🌐 Full Social Media Suite
-- **Twitter/X Integration** — Auto-posting with character optimization
+- **Twitter/X Integration** — Auto-posting with character optimization (250 char max)
 - **Facebook Integration** — Rich media posts with engagement tracking
 - **3 Social Media Watchers** — Automated queue processing for all platforms
 
@@ -370,13 +457,7 @@ Personal-AI-Employee/
 - **Accounting Summary** — MTD revenue, expenses, net position
 - **CEO Briefing Integration** — Weekly financial reports
 
-#### 🔄 Ralph Wiggum Loop
-- **Continuous Iteration** — Agent loops until task completion
-- **Error Recovery** — Automatic retry with exponential backoff
-- **Graceful Degradation** — Longer wait times after repeated failures
-- **Audit Logging** — All errors logged for analysis
-
-#### 🛡️ Advanced Error Recovery
+#### 🔄 Advanced Error Recovery
 - **Retry Logic** — 3 attempts with 10s delay
 - **Consecutive Error Tracking** — Monitors failure patterns
 - **Graceful Degradation** — 5x backoff after 5 consecutive errors
@@ -389,43 +470,90 @@ Personal-AI-Employee/
 - **Proactive Suggestions** — AI-generated action items
 - **Upcoming Deadlines** — 14-day project timeline
 
-**Total Development Time:** ~40 hours
-**Lines of Code:** ~4,500
+### ✅ Platinum Tier Additions
+
+#### ☁️ Cloud Deployment & 24/7 Operation
+- **Cloud Orchestrator** — 24/7 drafting agent on cloud VM
+- **Work-Zone Isolation** — Cloud drafts, local executes sensitive actions
+- **Git Sync** — Vault synchronization via GitHub (secrets excluded)
+- **Watchdog Process** — Auto-restart failed processes for continuous uptime
+- **Health Monitoring** — Status updates written to `/Updates/` folder
+- **Claim-by-Move** — First agent to move task file wins (prevents conflicts)
+
+#### 🔄 Vault Synchronization
+- **Bidirectional Sync** — Cloud ↔ GitHub ↔ Local
+- **Automatic Sync** — Every 2.5 minutes on cloud, on-demand on local
+- **Conflict Resolution** — Git rebase with automatic fallback
+- **Security** — Secrets never synced (`.env`, sessions, credentials)
+- **Audit Trail** — All sync operations logged
+
+#### 🛡️ Enhanced Security & Isolation
+- **Work-Zone Separation** — `/In_Progress/{cloud,local}` prevents conflicts
+- **Approval Zones** — `/Pending_Approval/{cloud,local}` for review
+- **Local-Only Actions** — WhatsApp, social posting, payments (never on cloud)
+- **Cloud-Only Drafting** — Email drafts, social drafts, Odoo drafts
+- **Session Isolation** — Browser sessions stored locally, never in vault
+
+#### 📊 Process Monitoring
+- **Watchdog Service** — Monitors Gmail Watcher + Cloud Orchestrator
+- **Auto-Restart** — Failed processes automatically restarted
+- **PID Tracking** — Process IDs stored in `/tmp/` for monitoring
+- **Health Updates** — Status written to vault every 10 minutes
+- **Log Aggregation** — All logs in `logs/` directory
+
+**Total Development Time:** ~60 hours
+**Lines of Code:** ~6,500
 **MCP Servers:** 6
 **Agent Skills:** 7
-**Watchers:** 8
-**Test Coverage:** Manual testing with real accounts (Gmail, WhatsApp, Odoo, Social Media)
+**Watchers:** 10 (8 local + 2 cloud)
+**Deployment Zones:** 2 (Cloud VM + Local Machine)
+**Test Coverage:** Manual testing with real accounts (Gmail, WhatsApp, Odoo, Social Media, Cloud VM)
 
 ---
 
 ## 🗺️ Roadmap
 
-### Platinum Tier (Future)
+### ✅ Platinum Tier (Completed)
 
-- [ ] Cloud deployment (24/7 operation on VPS)
-- [ ] Work-zone specialization (Cloud vs Local)
-- [ ] Vault sync via Git/Syncthing
-- [ ] Agent-to-Agent communication
-- [ ] Advanced security hardening
-- [ ] Multi-user support
+- [x] Cloud deployment (24/7 operation on VPS)
+- [x] Work-zone specialization (Cloud vs Local)
+- [x] Vault sync via Git
+- [x] Agent-to-Agent coordination (claim-by-move)
+- [x] Advanced security hardening (work-zone isolation)
+- [x] Process monitoring (watchdog)
+- [x] Auto-restart failed processes
+- [x] Health status updates
+
+### Future Enhancements
+
+- [ ] Multi-user support (team collaboration)
 - [ ] Calendar integration (Google Calendar MCP)
 - [ ] Payment gateway integration (Stripe MCP)
-- [ ] Browser automation for complex workflows
+- [ ] Advanced browser automation workflows
 - [ ] Voice interface (Whisper + TTS)
+- [ ] Web dashboard UI (real-time monitoring)
+- [ ] Metrics & analytics dashboard
+- [ ] Automated testing suite
+- [ ] Docker containerization
+- [ ] Kubernetes deployment
 
 ---
 
 ## 🔒 Security Considerations
 
-- **Credentials:** All secrets in `.env` (gitignored)
-- **OAuth Tokens:** `token.pickle` never committed
-- **DRY_RUN:** Default mode prevents accidental actions
+- **Credentials:** All secrets in `.env` (gitignored), never synced to GitHub
+- **OAuth Tokens:** `token.pickle` never committed or synced
+- **DRY_RUN:** Default mode prevents accidental actions during testing
 - **Rate Limits:** Max 10 emails/hour, prevents spam
-- **HITL Required:** Payments, new contacts, bulk sends
+- **HITL Required:** Payments, new contacts, bulk sends always require approval
 - **Audit Trail:** Every action logged with timestamp & parameters
 - **Odoo Security:** Credentials injected via environment, never hardcoded
-- **Session Management:** Browser sessions stored locally, never in vault
+- **Session Management:** Browser sessions stored locally, never in vault or GitHub
 - **Error Isolation:** Failed actions don't crash entire system
+- **Work-Zone Isolation:** Cloud agent cannot execute sensitive actions (WhatsApp, payments, posting)
+- **Git Sync Security:** Only vault files synced, `.env` and sessions excluded via `.gitignore`
+- **Process Isolation:** Watchdog monitors processes via PID files, auto-restarts on failure
+- **Approval Zones:** Separate `/Pending_Approval/{cloud,local}` prevents unauthorized execution
 
 ---
 
@@ -472,7 +600,7 @@ Educational use only. Part of the Personal AI Employee Hackathon 0.
 
 **Built with ❤️ using Claude Code**
 
-**Gold Tier Complete** — Full autonomous business operations with 8 watchers, 6 MCP servers, 7 agent skills, and Odoo ERP integration
+**Platinum Tier Complete** — Full autonomous business operations with 10 watchers, 6 MCP servers, 7 agent skills, Odoo ERP integration, cloud deployment, and 24/7 monitoring
 
 [⬆ Back to Top](#-personal-ai-employee)
 
