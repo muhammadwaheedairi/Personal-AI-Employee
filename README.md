@@ -122,8 +122,8 @@ Full ERP integration for business operations:
                            ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │            OBSIDIAN VAULT (Knowledge Base + Git Sync)               │
-│  /Needs_Action → /In_Progress/{cloud,local} → /Plans/{cloud,local}  │
-│  → /Pending_Approval/{cloud,local} → /Approved → /Done              │
+│  /Needs_Action → /In_Progress → /Plans → /Pending_Approval          │
+│  → /Approved → /Done                                                 │
 │  Dashboard.md │ Business_Goals.md │ Logs/ │ Briefings/ │ Updates/   │
 │  Git Sync: Cloud ↔ GitHub ↔ Local (vault only, secrets excluded)   │
 └──────────────────────────┬──────────────────────────────────────────┘
@@ -144,7 +144,7 @@ Full ERP integration for business operations:
                     ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │  HUMAN APPROVAL (HITL Watcher)                                      │
-│  Review drafts in /Pending_Approval/{cloud,local}                   │
+│  Review drafts in /Pending_Approval                                 │
 │  Move to /Approved → Local agent executes                           │
 └──────────────────────────┬──────────────────────────────────────────┘
                            │
@@ -351,36 +351,48 @@ claude
 
 ```
 Personal-AI-Employee/
+├── .claude/                        # Claude Code configuration
+│   ├── hooks/                      # Custom hooks (stop.py)
+│   ├── skills/                     # Agent Skills (7 skills)
+│   │   ├── browsing-with-playwright/
+│   │   ├── daily-briefing/
+│   │   ├── facebook-poster/
+│   │   ├── gmail-triage/
+│   │   ├── linkedin-poster/
+│   │   ├── twitter-poster/
+│   │   └── whatsapp-triage/
+│   └── settings.json               # MCP server configuration
+│
+├── .facebook_session/              # Facebook Playwright session (local only)
+├── .linkedin_session/              # LinkedIn Playwright session (local only)
+├── .twitter_session/               # Twitter Playwright session (local only)
+├── .whatsapp_session/              # WhatsApp Playwright session (local only)
+│
 ├── AI_Employee_Vault/              # Obsidian knowledge base (Git synced)
+│   ├── .obsidian/                  # Obsidian configuration
+│   ├── Needs_Action/               # Incoming tasks
+│   ├── In_Progress/                # Currently processing
+│   ├── Plans/                      # Multi-step plans
+│   │   ├── facebook_queue/         # Facebook posts ready to publish
+│   │   ├── linkedin_queue/         # LinkedIn posts ready to publish
+│   │   └── twitter_queue/          # Twitter posts ready to publish
+│   ├── Pending_Approval/           # Awaiting human review
+│   ├── Approved/                   # Ready for execution
+│   ├── Rejected/                   # Declined actions
+│   ├── Done/                       # Completed tasks
+│   │   ├── facebook_posted/        # Published Facebook posts
+│   │   ├── linkedin_posted/        # Published LinkedIn posts
+│   │   └── twitter_posted/         # Published Twitter posts
+│   ├── Updates/                    # Status updates and notifications
+│   ├── Logs/                       # Audit trail (JSON)
+│   ├── Briefings/                  # Weekly CEO reports
+│   ├── Inbox/                      # Manual task drops
 │   ├── Dashboard.md                # Real-time status
 │   ├── Business_Goals.md           # Revenue targets & KPIs
-│   ├── Company_Handbook.md         # Decision rules
-│   ├── Needs_Action/               # Incoming tasks (both agents)
-│   ├── In_Progress/                # Work-zone isolation
-│   │   ├── cloud/                  # Cloud agent claimed tasks
-│   │   └── local/                  # Local agent claimed tasks
-│   ├── Plans/                      # Multi-step plans
-│   │   ├── cloud/                  # Cloud agent plans
-│   │   │   ├── linkedin_queue/     # LinkedIn drafts
-│   │   │   ├── twitter_queue/      # Twitter drafts
-│   │   │   └── facebook_queue/     # Facebook drafts
-│   │   └── local/                  # Local agent plans
-│   │       ├── linkedin_queue/     # LinkedIn posts (ready)
-│   │       ├── twitter_queue/      # Twitter posts (ready)
-│   │       └── facebook_queue/     # Facebook posts (ready)
-│   ├── Pending_Approval/           # Awaiting human review
-│   │   ├── cloud/                  # Cloud drafts for approval
-│   │   └── local/                  # Local drafts for approval
-│   ├── Approved/                   # Ready for execution (local only)
-│   ├── Done/                       # Completed tasks
-│   │   ├── linkedin_posted/        # Published LinkedIn
-│   │   ├── twitter_posted/         # Published Twitter
-│   │   └── facebook_posted/        # Published Facebook
-│   ├── Updates/                    # Cloud → Local status updates
-│   ├── Logs/                       # Audit trail (JSON)
-│   └── Briefings/                  # Weekly CEO reports
+│   └── Company_Handbook.md         # Decision rules
 │
 ├── watchers/                       # Perception layer (10 watchers)
+│   ├── logs/                       # Watcher runtime logs
 │   ├── base_watcher.py             # Abstract base with retry logic
 │   ├── gmail_watcher.py            # Email monitoring (cloud/local)
 │   ├── whatsapp_watcher.py         # WhatsApp monitoring (local only)
@@ -390,16 +402,8 @@ Personal-AI-Employee/
 │   ├── hitl_approval_watcher.py    # Approval executor (local only)
 │   ├── filesystem_watcher.py       # File drop monitoring (both)
 │   ├── plan_creator.py             # Plan generation (both)
-│   └── config.py                   # Configuration loader
-│
-├── .claude/skills/                 # Agent Skills (7 skills)
-│   ├── gmail-triage/               # Email classification & drafting
-│   ├── whatsapp-triage/            # WhatsApp intent detection
-│   ├── linkedin-poster/            # Business content generation
-│   ├── facebook-poster/            # Facebook community content
-│   ├── twitter-poster/             # Twitter/X viral tweets
-│   ├── daily-briefing/             # CEO briefing with Odoo
-│   └── browsing-with-playwright/   # Browser automation
+│   ├── config.py                   # Configuration loader
+│   └── token.pickle                # Gmail OAuth token (local only)
 │
 ├── mcp_servers/                    # Action layer (6 MCP servers - local only)
 │   ├── email_mcp.py                # Gmail send/draft
@@ -409,18 +413,33 @@ Personal-AI-Employee/
 │   ├── linkedin_mcp.py             # LinkedIn publishing
 │   └── odoo_mcp.py                 # Odoo ERP integration
 │
+├── drop_folder/                    # File-based task triggers
+├── logs/                           # Root-level watcher logs
+│
 ├── main.py                         # Local orchestrator entry point
 ├── orchestrator.py                 # Local master process with threading
 ├── cloud_orchestrator.py           # Cloud 24/7 drafting agent
 ├── watchdog.py                     # Process monitor & auto-restart
 ├── git_sync.sh                     # Vault sync via GitHub
 ├── cron_setup.sh                   # Cron job installer
-├── pyproject.toml                  # Dependencies (uv)
+├── odoo_backup.sh                  # Odoo database backup script
+│
+├── credentials.json                # Gmail API credentials (local only)
 ├── .env                            # Environment config (never synced)
+├── .env.example                    # Environment template
+├── pyproject.toml                  # Dependencies (uv)
+├── uv.lock                         # Dependency lock file
+│
 ├── CLAUDE.md                       # Claude Code instructions
+├── CHANGELOG.md                    # Version history
 ├── Personal_AI_Employee_Hackathon.md  # Architecture blueprint
+├── Setup -guide.md                 # Installation guide
 └── README.md                       # This file
 ```
+
+**Note:**
+- Session directories (`.facebook_session/`, `.linkedin_session/`, `.twitter_session/`, `.whatsapp_session/`) contain Playwright browser sessions and are never synced to Git or cloud. They must be set up locally on each machine.
+- Cloud/local work-zone isolation (subdirectories in `In_Progress/`, `Pending_Approval/`, `Plans/`) is implemented in `cloud_orchestrator.py` but not actively used in current deployment. The system currently operates with flat directory structure.
 
 ---
 
@@ -473,8 +492,8 @@ Personal-AI-Employee/
 ### ✅ Platinum Tier Additions
 
 #### ☁️ Cloud Deployment & 24/7 Operation
-- **Cloud Orchestrator** — 24/7 drafting agent on cloud VM
-- **Work-Zone Isolation** — Cloud drafts, local executes sensitive actions
+- **Cloud Orchestrator** — 24/7 drafting agent (code complete, deployment ready)
+- **Work-Zone Isolation** — Code infrastructure for agent separation (cloud_orchestrator.py)
 - **Git Sync** — Vault synchronization via GitHub (secrets excluded)
 - **Watchdog Process** — Auto-restart failed processes for continuous uptime
 - **Health Monitoring** — Status updates written to `/Updates/` folder
@@ -488,10 +507,10 @@ Personal-AI-Employee/
 - **Audit Trail** — All sync operations logged
 
 #### 🛡️ Enhanced Security & Isolation
-- **Work-Zone Separation** — `/In_Progress/{cloud,local}` prevents conflicts
-- **Approval Zones** — `/Pending_Approval/{cloud,local}` for review
+- **Work-Zone Separation** — Code infrastructure for agent isolation (in cloud_orchestrator.py)
+- **Approval Zones** — Separate approval workflow support
 - **Local-Only Actions** — WhatsApp, social posting, payments (never on cloud)
-- **Cloud-Only Drafting** — Email drafts, social drafts, Odoo drafts
+- **Cloud-Only Drafting** — Email drafts, social drafts, Odoo drafts (when deployed)
 - **Session Isolation** — Browser sessions stored locally, never in vault
 
 #### 📊 Process Monitoring

@@ -8,12 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] - 2026-03-04 - Platinum Tier Complete 💎
 
 ### Added - Cloud Deployment & 24/7 Operation
-- **Cloud Orchestrator** — 24/7 drafting agent running on cloud VM
+- **Cloud Orchestrator** — 24/7 drafting agent (code complete, deployment ready)
 - **Watchdog Process** — Auto-restart failed processes for continuous uptime
 - **Git Sync** — Bidirectional vault synchronization (Cloud ↔ GitHub ↔ Local)
-- **Work-Zone Isolation** — `/In_Progress/{cloud,local}` prevents agent conflicts
-- **Approval Zones** — `/Pending_Approval/{cloud,local}` for review separation
-- **Health Monitoring** — Status updates written to `/Updates/` folder every 10 minutes
+- **Work-Zone Isolation** — Code infrastructure for agent separation (in cloud_orchestrator.py)
+- **Approval Zones** — Separate approval workflow support in code
+- **Health Monitoring** — Status updates written to `/Updates/` folder
 - **Claim-by-Move** — First agent to move task file wins (prevents race conditions)
 
 ### Added - Enhanced Security & Isolation
@@ -47,8 +47,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed test briefing: `2026-02-27_Briefing.md`
 - Cleaned up test logs: `2026-02-27.json`
 - Removed processed tracking files
-- Deleted empty `.gitkeep` files from work-zone folders
 - Cleaned up Recent Activity section in Dashboard
+
+**Note:** Cloud/local work-zone subdirectories (`In_Progress/{cloud,local}`, `Pending_Approval/{cloud,local}`, `Plans/{cloud,local}`) are implemented in code but not actively used in current flat directory structure.
 
 ### Infrastructure
 - Total watchers: 10 (8 local + 2 cloud)
