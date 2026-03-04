@@ -11,7 +11,8 @@ from googleapiclient.discovery import build
 from watchers.base_watcher import BaseWatcher  # fixed: package import
 from watchers.config import Config             # fixed: package import
 
-SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
+'https://www.googleapis.com/auth/gmail.send']
 
 
 class GmailWatcher(BaseWatcher):
