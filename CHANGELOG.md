@@ -29,14 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `QWEN.md` → `CLAUDE.md` with Platinum tier references
 - Updated all skill paths from `@.qwen/skills/` to `@.claude/skills/`
 - Updated Dashboard footer: Qwen Code → Claude Code
-- Removed Instagram watcher references (not implemented)
 
 ### Changed - Documentation Updates
 - **README.md** — Updated to Platinum Tier with cloud deployment architecture
 - **CLAUDE.md** — Updated tier references and settings paths
 - **Architecture Diagram** — Added cloud/local split visualization
 - **Project Structure** — Documented new work-zone folders
-- **Statistics** — Updated to 10 watchers, 60 hours dev time, 6,500 LOC
+- **Statistics** — Updated to 8 watchers, 60 hours dev time, ~3,600 LOC
 
 ### Fixed
 - Added `gmail.send` scope to Gmail watcher for reply functionality
@@ -52,10 +51,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Note:** Cloud/local work-zone subdirectories (`In_Progress/{cloud,local}`, `Pending_Approval/{cloud,local}`, `Plans/{cloud,local}`) are implemented in code but not actively used in current flat directory structure.
 
 ### Infrastructure
-- Total watchers: 10 (8 local + 2 cloud)
+- Total watchers: 8 (perception layer)
+- MCP servers: 6 (email, whatsapp, linkedin, twitter, facebook, odoo)
+- Agent skills: 5 (browsing, daily-briefing, gmail-triage, linkedin-poster, whatsapp-triage)
 - Deployment zones: 2 (Cloud VM + Local Machine)
 - Development time: ~60 hours
-- Lines of code: ~6,500
+- Lines of code: ~3,600
 - Test coverage: Manual testing with real accounts + cloud VM deployment
 
 ## [0.3.0] - 2026-02-27 - Gold Tier Complete 🥇
@@ -129,8 +130,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned Features
 - [ ] Odoo Community integration for accounting
-- [ ] Facebook & Instagram watchers
-- [ ] Twitter (X) integration
+- [ ] Facebook & Twitter agent skills (watchers exist)
 - [ ] Weekly Business Audit with CEO Briefing
 - [ ] Ralph Wiggum loop for autonomous task completion
 - [ ] Payment MCP server

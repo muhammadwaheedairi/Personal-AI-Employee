@@ -32,7 +32,7 @@ A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the c
 - ☁️ **Cloud/Local Split** — Cloud agent drafts, local agent executes sensitive actions
 - 🔄 **Git Sync** — Vault synchronization between cloud and local via GitHub
 
-**Platinum Tier Achievement:** Full autonomous business operations with 10 watchers, 6 MCP servers, 7 agent skills, Odoo ERP integration, cloud deployment, and 24/7 monitoring.
+**Implementation Status:** Platinum Tier with 8 watchers, 6 MCP servers, 5 agent skills, Odoo ERP integration, cloud deployment, and 24/7 monitoring.
 
 ---
 
@@ -50,8 +50,6 @@ A **Digital Full-Time Equivalent (FTE)** that works 168 hours/week at ~10% the c
 | **HITL Approval** | ✅ Active | Watches `/Pending_Approval` and executes approved actions | Local Only |
 | **Filesystem** | ✅ Active | Monitors drop folders for file-based triggers | Both |
 | **Plan Creator** | ✅ Active | Generates multi-step plans from vault tasks | Both |
-| **Cloud Orchestrator** | ✅ Active | 24/7 cloud agent for drafting (no sending) | Cloud Only |
-| **Watchdog** | ✅ Active | Monitors and auto-restarts critical processes | Cloud Only |
 
 ### 🧠 Claude Agent Skills
 
@@ -60,10 +58,10 @@ All AI functionality is implemented as reusable [Agent Skills](https://docs.anth
 - **`/gmail-triage`** — Classifies emails, creates plans, drafts replies with intent detection
 - **`/whatsapp-triage`** — Detects intent, generates invoices, routes approvals, handles payments
 - **`/linkedin-poster`** — Writes compelling posts from business context with engagement hooks
-- **`/facebook-poster`** — Generates Facebook posts with community-engaging content (40-80 words optimal)
-- **`/twitter-poster`** — Creates viral tweets with strong hooks (250 char max, engagement-focused)
 - **`/daily-briefing`** — Generates Monday CEO briefing with Odoo revenue & bottleneck analysis
 - **`/browsing-with-playwright`** — Browser automation for web scraping and form filling
+
+**Note:** Facebook and Twitter posting are implemented via watchers and MCP servers, but dedicated agent skills are not yet created.
 
 ### 🔌 MCP Servers (Action Layer)
 
@@ -112,11 +110,11 @@ Full ERP integration for business operations:
      │         │          │          │         │
      ▼         ▼          ▼          ▼         ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│              PERCEPTION LAYER (10 Watchers)                         │
-│  Cloud: Gmail Watcher (24/7) + Cloud Orchestrator                  │
-│  Local: WhatsApp • LinkedIn • Twitter • Facebook • HITL            │
+│              PERCEPTION LAYER (8 Watchers)                          │
+│  Local: Gmail • WhatsApp • LinkedIn • Twitter • Facebook • HITL    │
 │         Filesystem • Plan Creator                                   │
-│  Watchdog: Auto-restart failed processes                            │
+│  Cloud: Gmail Watcher (24/7) + Cloud Orchestrator (code ready)     │
+│  Watchdog: Process monitor (process_watchdog.py)                    │
 └──────────────────────────┬──────────────────────────────────────────┘
                            │
                            ▼
@@ -170,7 +168,7 @@ Full ERP integration for business operations:
 - **Orchestration:**
   - Local: main.py + orchestrator.py (thread-based concurrency)
   - Cloud: cloud_orchestrator.py (24/7 drafting agent)
-  - Monitoring: watchdog.py (auto-restart failed processes)
+  - Monitoring: process_watchdog.py (auto-restart failed processes)
 - **Sync:** git_sync.sh (vault synchronization via GitHub)
 - **ERP:** Odoo 19 Community Edition (accounting, invoicing, CRM)
 - **Deployment:** Cloud VM (24/7) + Local machine (on-demand)
@@ -223,7 +221,7 @@ uv run python main.py --gmail
 # - Clone repository
 # - Configure .env (same as local)
 # - Set up git credentials for auto-sync
-# - Run: uv run python watchdog.py
+# - Run: uv run python process_watchdog.py
 ```
 
 ### Running the System
@@ -254,7 +252,7 @@ uv run python main.py --briefing
 uv run python cloud_orchestrator.py
 
 # Start watchdog (monitors and auto-restarts processes)
-uv run python watchdog.py
+uv run python process_watchdog.py
 
 # Manual git sync (automatic every 2.5 min in cloud orchestrator)
 bash git_sync.sh cloud
@@ -339,7 +337,7 @@ claude
 
 ### Cloud Deployment & Monitoring
 
-1. **Cloud VM Setup:** Deploy cloud_orchestrator.py + watchdog.py on VPS
+1. **Cloud VM Setup:** Deploy cloud_orchestrator.py + process_watchdog.py on VPS
 2. **24/7 Operation:** Cloud agent continuously monitors `/Needs_Action`
 3. **Auto-Restart:** Watchdog detects failed process → restarts automatically
 4. **Health Updates:** Status written to `/Updates/` every 10 minutes
@@ -352,14 +350,12 @@ claude
 ```
 Personal-AI-Employee/
 ├── .claude/                        # Claude Code configuration
-│   ├── hooks/                      # Custom hooks (stop.py)
-│   ├── skills/                     # Agent Skills (7 skills)
+│   ├── hooks/                      # Custom hooks (stop.py - Ralph Wiggum pattern)
+│   ├── skills/                     # Agent Skills (5 skills)
 │   │   ├── browsing-with-playwright/
 │   │   ├── daily-briefing/
-│   │   ├── facebook-poster/
 │   │   ├── gmail-triage/
 │   │   ├── linkedin-poster/
-│   │   ├── twitter-poster/
 │   │   └── whatsapp-triage/
 │   └── settings.json               # MCP server configuration
 │
@@ -391,7 +387,7 @@ Personal-AI-Employee/
 │   ├── Business_Goals.md           # Revenue targets & KPIs
 │   └── Company_Handbook.md         # Decision rules
 │
-├── watchers/                       # Perception layer (10 watchers)
+├── watchers/                       # Perception layer (8 watchers)
 │   ├── logs/                       # Watcher runtime logs
 │   ├── base_watcher.py             # Abstract base with retry logic
 │   ├── gmail_watcher.py            # Email monitoring (cloud/local)
@@ -419,7 +415,7 @@ Personal-AI-Employee/
 ├── main.py                         # Local orchestrator entry point
 ├── orchestrator.py                 # Local master process with threading
 ├── cloud_orchestrator.py           # Cloud 24/7 drafting agent
-├── watchdog.py                     # Process monitor & auto-restart
+├── process_watchdog.py             # Process monitor & auto-restart
 ├── git_sync.sh                     # Vault sync via GitHub
 ├── cron_setup.sh                   # Cron job installer
 ├── odoo_backup.sh                  # Odoo database backup script
@@ -459,14 +455,16 @@ Personal-AI-Employee/
 - HITL Approval Workflow
 - WhatsApp Reply Sending via Playwright
 - Cron Scheduling for daily briefing
-- 4 Agent Skills
+- 5 Agent Skills (browsing, daily-briefing, gmail-triage, linkedin-poster, whatsapp-triage)
 
-### ✅ Gold Tier Requirements (Completed)
+### ✅ Gold Tier Requirements (Mostly Completed)
 
 #### 🌐 Full Social Media Suite
 - **Twitter/X Integration** — Auto-posting with character optimization (250 char max)
 - **Facebook Integration** — Rich media posts with engagement tracking
+- **LinkedIn Integration** — Professional content with engagement hooks
 - **3 Social Media Watchers** — Automated queue processing for all platforms
+- **3 Social Media MCP Servers** — Direct posting capabilities
 
 #### 💰 Odoo ERP Integration
 - **Odoo MCP Server** — Full XML-RPC integration with Odoo 19
@@ -514,17 +512,18 @@ Personal-AI-Employee/
 - **Session Isolation** — Browser sessions stored locally, never in vault
 
 #### 📊 Process Monitoring
-- **Watchdog Service** — Monitors Gmail Watcher + Cloud Orchestrator
+- **Watchdog Service** — Monitors Gmail Watcher + Cloud Orchestrator (process_watchdog.py)
 - **Auto-Restart** — Failed processes automatically restarted
 - **PID Tracking** — Process IDs stored in `/tmp/` for monitoring
 - **Health Updates** — Status written to vault every 10 minutes
 - **Log Aggregation** — All logs in `logs/` directory
 
 **Total Development Time:** ~60 hours
-**Lines of Code:** ~6,500
+**Lines of Code:** ~3,600
 **MCP Servers:** 6
-**Agent Skills:** 7
-**Watchers:** 10 (8 local + 2 cloud)
+**Agent Skills:** 5
+**Watchers:** 8 (perception layer)
+**Orchestration Components:** 3 (main.py, orchestrator.py, cloud_orchestrator.py, process_watchdog.py)
 **Deployment Zones:** 2 (Cloud VM + Local Machine)
 **Test Coverage:** Manual testing with real accounts (Gmail, WhatsApp, Odoo, Social Media, Cloud VM)
 
@@ -545,16 +544,10 @@ Personal-AI-Employee/
 
 ### Future Enhancements
 
+- [ ] Facebook and Twitter agent skills (watchers exist, skills needed)
 - [ ] Multi-user support (team collaboration)
 - [ ] Calendar integration (Google Calendar MCP)
 - [ ] Payment gateway integration (Stripe MCP)
-- [ ] Advanced browser automation workflows
-- [ ] Voice interface (Whisper + TTS)
-- [ ] Web dashboard UI (real-time monitoring)
-- [ ] Metrics & analytics dashboard
-- [ ] Automated testing suite
-- [ ] Docker containerization
-- [ ] Kubernetes deployment
 
 ---
 
@@ -571,7 +564,7 @@ Personal-AI-Employee/
 - **Error Isolation:** Failed actions don't crash entire system
 - **Work-Zone Isolation:** Cloud agent cannot execute sensitive actions (WhatsApp, payments, posting)
 - **Git Sync Security:** Only vault files synced, `.env` and sessions excluded via `.gitignore`
-- **Process Isolation:** Watchdog monitors processes via PID files, auto-restarts on failure
+- **Process Isolation:** Watchdog monitors processes via PID files, auto-restarts on failure (process_watchdog.py)
 - **Approval Zones:** Separate `/Pending_Approval/{cloud,local}` prevents unauthorized execution
 
 ---
@@ -619,7 +612,7 @@ Educational use only. Part of the Personal AI Employee Hackathon 0.
 
 **Built with ❤️ using Claude Code**
 
-**Platinum Tier Complete** — Full autonomous business operations with 10 watchers, 6 MCP servers, 7 agent skills, Odoo ERP integration, cloud deployment, and 24/7 monitoring
+**Platinum Tier Complete** — Full autonomous business operations with 8 watchers, 6 MCP servers, 5 agent skills, Odoo ERP integration, cloud deployment, and 24/7 monitoring
 
 [⬆ Back to Top](#-personal-ai-employee)
 
