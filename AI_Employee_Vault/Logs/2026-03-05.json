@@ -1,0 +1,102 @@
+[
+  {
+    "timestamp": "2026-03-05T07:52:08.719505",
+    "action_type": "send_email",
+    "actor": "hitl_approval_watcher",
+    "filename": "TEST_approval.md",
+    "decision": "approved",
+    "metadata": {
+      "type": "approval_request",
+      "action": "send_email",
+      "to": "muhammadwaheedairi@gmail.com",
+      "subject": "Test HITL Email",
+      "body": "This is a test email from HITL watcher.",
+      "status": "approved"
+    },
+    "result": "sent"
+  },
+  {
+    "timestamp": "2026-03-05T08:30:00Z",
+    "action_type": "odoo_customer_create",
+    "actor": "claude_code",
+    "status": "completed",
+    "details": {
+      "customer_name": "Muhammad Waheed",
+      "customer_id": 10,
+      "email": "muhammadwaheedairi@gmail.com",
+      "phone": "+92 323 8293672"
+    },
+    "source_file": "EMAIL_20260305_074451_Urgent Invoice Required for January.md",
+    "plan_file": "PLAN_EMAIL_20260305_074451.md"
+  },
+  {
+    "timestamp": "2026-03-05T08:30:15Z",
+    "action_type": "odoo_invoice_create",
+    "actor": "claude_code",
+    "status": "completed",
+    "details": {
+      "invoice_number": "INV/2026/00005",
+      "customer_name": "Muhammad Waheed",
+      "amount": 1500.00,
+      "description": "January 2026 Services - GIAIC 02 AI/Spec-Driven Online Hackathon",
+      "status": "posted"
+    },
+    "source_file": "EMAIL_20260305_074451_Urgent Invoice Required for January.md",
+    "plan_file": "PLAN_EMAIL_20260305_074451.md"
+  },
+  {
+    "timestamp": "2026-03-05T08:30:30Z",
+    "action_type": "email_draft",
+    "actor": "claude_code",
+    "status": "awaiting_approval",
+    "details": {
+      "to": "muhammadwaheedairi@gmail.com",
+      "subject": "Re: Urgent: Invoice Required for January",
+      "approval_file": "EMAIL_REPLY_20260305_083000.md"
+    },
+    "source_file": "EMAIL_20260305_074451_Urgent Invoice Required for January.md",
+    "plan_file": "PLAN_EMAIL_20260305_074451.md"
+  },
+  {
+    "timestamp": "2026-03-05T08:30:45Z",
+    "action_type": "whatsapp_draft",
+    "actor": "claude_code",
+    "status": "awaiting_approval",
+    "details": {
+      "to": "+92 323 8293672",
+      "message_preview": "Invoice confirmation for January services",
+      "approval_file": "WHATSAPP_REPLY_20260305_083000.md"
+    },
+    "source_file": "WHATSAPP_20260305_081515_991001.md",
+    "plan_file": "PLAN_WHATSAPP_20260305_081515.md"
+  },
+  {
+    "timestamp": "2026-03-05T08:42:00Z",
+    "action_type": "send_email",
+    "actor": "claude_code",
+    "status": "completed",
+    "details": {
+      "to": "muhammadwaheedairi@gmail.com",
+      "subject": "Re: Urgent: Invoice Required for January",
+      "invoice_number": "INV/2026/00005",
+      "approval_file": "EMAIL_REPLY_20260305_083000.md"
+    },
+    "source_file": "EMAIL_20260305_074451_Urgent Invoice Required for January.md",
+    "plan_file": "PLAN_EMAIL_20260305_074451.md",
+    "result": "sent"
+  },
+  {
+    "timestamp": "2026-03-05T08:42:15Z",
+    "action_type": "send_whatsapp",
+    "actor": "claude_code",
+    "status": "completed",
+    "details": {
+      "to": "+923238293672",
+      "invoice_number": "INV/2026/00005",
+      "approval_file": "WHATSAPP_REPLY_20260305_083000.md"
+    },
+    "source_file": "WHATSAPP_20260305_081515_991001.md",
+    "plan_file": "PLAN_WHATSAPP_20260305_081515.md",
+    "result": "sent"
+  }
+]
