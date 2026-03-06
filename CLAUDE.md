@@ -20,20 +20,48 @@ uv run python main.py --briefing      # trigger weekly CEO briefing
 ```
 
 ## Skills
+@.claude/skills/plan-creator/SKILL.md
 @.claude/skills/gmail-triage/SKILL.md
+@.claude/skills/gmail-sender/SKILL.md
 @.claude/skills/whatsapp-triage/SKILL.md
+@.claude/skills/whatsapp-sender/SKILL.md
+@.claude/skills/hitl-approval/SKILL.md
 @.claude/skills/linkedin-poster/SKILL.md
+@.claude/skills/twitter-poster/SKILL.md
+@.claude/skills/facebook-poster/SKILL.md
 @.claude/skills/browsing-with-playwright/SKILL.md
 @.claude/skills/daily-briefing/SKILL.md
+@.claude/skills/subscription-audit/SKILL.md
+@.claude/skills/odoo-accounting/SKILL.md
+@.claude/skills/calendar-scheduler/SKILL.md
 
 ## Skill Usage Rules
+
+**Meta-Orchestration:**
+- **plan-creator**: Use when any new file appears in /Needs_Action or user asks to create a plan/analyze a task. This meta-skill orchestrates the workflow by creating structured Plan.md files with steps, resources, and timeline.
+
+**Safety:**
+- **hitl-approval**: Use BEFORE executing any sensitive action (payments, unknown contacts, bulk operations, deletions, config changes). Intercepts sensitive actions, writes approval request to /Pending_Approval/, waits for human decision, and only executes after explicit approval.
+
+**Email Communication:**
 - **gmail-triage**: Use when EMAIL_*.md appears in /Needs_Action or user asks to check/triage emails
+- **gmail-sender**: Use when email files appear in /Approved or user asks to send emails/execute approved replies
+
+**WhatsApp Communication:**
 - **whatsapp-triage**: Use when WHATSAPP_*.md appears in /Needs_Action or user asks to handle WhatsApp messages
-- **linkedin-poster**: Use when user asks to post on LinkedIn or create business content
+- **whatsapp-sender**: Use when WhatsApp files appear in /Approved or user asks to send WhatsApp messages
+
+**Social Media:**
+- **linkedin-poster**: Use when user asks to post on LinkedIn, create business content, or announce milestones (1,300 char limit)
+- **twitter-poster**: Use when user asks to post on Twitter/X, share updates, or write viral tweets (250 char limit)
+- **facebook-poster**: Use when user asks to post on Facebook, share business updates, or write community-engaging content (40-80 words optimal)
+
+**Utilities:**
 - **browsing-with-playwright**: Use when tasks require web browsing, form submission, web scraping, UI testing, or any browser interaction (NOT for static content - use curl/wget instead)
 - **daily-briefing**: Use when PROMPT_daily_briefing.md appears in /Plans, on Monday mornings, or when user asks for weekly summary/CEO briefing/business audit
-
-**Note:** Facebook and Twitter posting are handled by watchers (facebook_poster.py, twitter_poster.py) and MCP servers, not agent skills.
+- **subscription-audit**: Use when PROMPT_subscription_audit.md appears in /Plans, on Sunday nights, or when user asks to audit subscriptions/check recurring payments/find unused services
+- **odoo-accounting**: Use when user asks to create invoice, add customer, check revenue, or get accounting summary. Always verifies customer exists, routes invoice creation to /Pending_Approval/, and integrates with CEO briefing
+- **calendar-scheduler**: Use when user asks to schedule meeting, check availability, create reminder, or get upcoming events. Always checks availability before scheduling, routes meeting creation to /Pending_Approval/, and integrates with CEO briefing
 
 ## Vault rules — MUST follow
 - NEVER delete files — move to /Done instead
@@ -74,7 +102,8 @@ Credentials: injected via `env` block in `~/.claude/settings.json` under this pr
 - **get_accounting_summary**: Use every Monday in CEO Briefing to populate revenue section
 
 ### Odoo Workflow
-Invoice request detected → `get_customers` to verify → if missing `create_customer` →
+Invoice request detected → load **odoo-accounting** skill → verify customer exists with `get_customers` →
+if missing `create_customer` → create approval request in /Pending_Approval/ → await human approval →
 `create_invoice` → log to /Vault/Logs/YYYY-MM-DD.json → update Dashboard.md
 
 ### Odoo in CEO Briefing
@@ -84,9 +113,11 @@ Every Monday briefing MUST include Odoo accounting summary:
 3. Flag any unpaid invoices as bottlenecks
 
 ### Odoo Security Rules
-- Invoice creation does NOT require HITL (it is non-destructive)
+- Invoice creation ALWAYS requires human approval via /Pending_Approval (create_invoice posts immediately)
+- Customer creation does NOT require approval (non-destructive, can be edited later)
 - Payment marking ALWAYS requires human approval via /Pending_Approval
 - Never store Odoo credentials in code or vault — use `~/.claude/settings.json` env block only
+- Always use odoo-accounting skill for invoice workflows — never call create_invoice directly
 
 ## Code style
 - Python 3.13+, type hints on all function signatures
