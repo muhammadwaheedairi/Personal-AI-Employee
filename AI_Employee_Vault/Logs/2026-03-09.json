@@ -1,0 +1,29 @@
+[
+  {
+    "timestamp": "2026-03-09T09:31:56Z",
+    "action_type": "whatsapp_triage",
+    "source_file": "WHATSAPP_20260309_093156_346480.md",
+    "intent": "invoice_request",
+    "priority": "high",
+    "matched_keywords": ["urgent", "invoice", "asap"],
+    "action_taken": "created_invoice_approval_request",
+    "plan_file": "PLAN_WHATSAPP_20260309_093156_invoice.md",
+    "approval_file": "APPROVAL_invoice_whatsapp_20260309_093156.md",
+    "routed_to_approval": true,
+    "missing_info": ["customer_name", "customer_email", "invoice_amount"],
+    "phone": "+92 323 8293672"
+  },
+  {
+    "timestamp": "2026-03-09T09:35:00Z",
+    "action_type": "ceo_briefing_generated",
+    "briefing_file": "2026-03-09_Briefing.md",
+    "mtd_revenue_invoiced": 7000.00,
+    "mtd_revenue_collected": 0.00,
+    "outstanding_invoices": 3,
+    "overdue_invoices": 1,
+    "tasks_completed_this_week": 1,
+    "pending_approvals": 1,
+    "active_plans": 1,
+    "overall_status": "yellow"
+  }
+]
